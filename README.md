@@ -1,3 +1,2 @@
 # hello-world
-My first repository
-This is my first branch! hahaha
+## My first repository!!!
