@@ -21,10 +21,6 @@
 <body>
 <div class="box box1"><div class="box box2"><div class="box box2"></div></div></div>
 
-
-<!--<script src="http://code.jquery.com/jquery-3.2.1.js"
-        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous"></script>-->
 <script>
     var rgba='rgba(';
     for(var i=0;i<3;i++){
