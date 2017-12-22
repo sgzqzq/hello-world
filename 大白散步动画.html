@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .bg{
+            background-color: #FC9495;
+            overflow: hidden;
+        }
+        .bg img{
+
+        }
+        button{
+            margin-top: 30px;
+            width: 80px; height: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <img id="bigwhite" style="margin-left: -175px;" height="150" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502854526841&di=67a44c89dac216b92be299106f2391ea&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170115%2F4dd31c20796e4f39848f9caf9935813d_th.gif"/>
+</div>
+<button id="btn">run</button>
+
+<script>
+    //IE9-浏览器不支持该方法，可以使用setTimeout来兼容
+    if(!window.requestAnimationFrame){
+        var lastTime = 0;
+        window.requestAnimationFrame = function(callback){
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0,16.7-(currTime - lastTime));
+            var id  = window.setTimeout(function(){
+                callback(currTime + timeToCall);
+            },timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        }
+    }
+    if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+    }
+
+
+    /*
+    //点击走一次动画
+    var timer=null;
+    btn.onclick=function(){
+        cancelAnimationFrame(timer);
+        bigwhite.style.marginLeft='-100px';
+
+        timer=requestAnimationFrame(function fn(){
+            if(parseInt(bigwhite.style.marginLeft)<1270){
+                bigwhite.style.marginLeft=parseInt(bigwhite.style.marginLeft)+2+'px';
+                timer=requestAnimationFrame(fn);
+            }else{
+                cancelAnimationFrame(timer);
+            }
+        });
+    }
+    */
+
+    //点击循环走动画
+    var timer=null;
+    btn.onclick=function(){
+        bigwhite.style.marginLeft='-100px';
+        cancelAnimationFrame(timer);
+
+        timer=requestAnimationFrame(function fn(){
+            if(parseInt(bigwhite.style.marginLeft)>1270){
+                bigwhite.style.marginLeft='-100px';
+            }
+            bigwhite.style.marginLeft=parseInt(bigwhite.style.marginLeft)+2+'px';
+            timer=requestAnimationFrame(fn);
+        });
+    }
+</script>
+</body>
+</html>
