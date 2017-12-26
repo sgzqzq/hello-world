@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>tabindex</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        div{
+            width: 100px; height: 50px;
+            background-color: #b9eee8;
+            text-align: center; line-height: 50px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<!--
+html中的tabIndex属性可以设置键盘中的TAB键在控件中的移动顺序,即焦点的顺序。
+默认的tabIndex属性为 0 ，将排列在在所有指定tabIndex的控件之后。
+将tabIndex赋值为-1，则在使用[Tab]键时，此元素被忽略。注意：如果使用-1值时，onfocus与onblur事件仍被启动。
+tabIndex的值可为0至32767之间的任意数字(不太理解。。。。。)
+-->
+<div tabindex="1">1</div>
+<div tabindex="2">2</div>
+<div tabindex="32770">3</div>
+<div tabindex="32772">4</div>
+<div tabindex="32771">5</div>
+
+<!--<script src="http://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>-->
+<script>
+
+</script>
+</body>
+</html>
