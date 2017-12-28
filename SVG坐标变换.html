@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVG坐标变换</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .svg, svg{
+            margin: 10px;
+            float: left;
+            width: 500px;
+            height: 500px;
+            background-color: rgba(148, 206, 255, 0.15);.
+        }
+        .rect{
+            margin-top: 30px; margin-left: 30px;
+            width: 120px; height: 90px;
+            background-color: #94CEFF;
+            transform-origin: right bottom;
+            transform: rotate(90deg);
+            transform: rotate(90deg) translate(0,-100%);
+            transform: rotate(90deg) translate(0,-100%) rotate(90deg);
+            transform: rotate(90deg) translate(0,-100%) rotate(90deg) translate(0,100%);
+        }
+    </style>
+</head>
+<body>
+<!--
+CSS3 transform用在普通元素上可以，用在svg上，IE上不支持
+SVG中的transform的坐标变换的是相对于画布的左上角计算的
+SVG transform属性语法有些自带偏移
+
+translate位移支持多声明累加
+transform="translate(30 12) translate(30 12)"
+
+<rect x="30" y="30" width="150" height="100" fill="#94CEFF" rx="50" ry="15"/>
+rect中rx指圆角x轴半径，ry指圆角y轴半径
+
+rotate(angle[ x y])
+[ x y]用来偏移transform变换中心点
+<rect x="30" y="30" width="120" height="90" rx="10" ry="10" fill="#a0b3d6" transform="rotate(45, 90 75)"></rect>
+90 = 30 + 120/2
+75 = 30 +  90/2
+-->
+
+<!--
+矩形先相对于右下角变换，再相对于右上角变换
+定位的坐标也会随之变换
+-->
+<svg>
+    <rect x="60" y="60" width="150" height="90" fill="#94CEFF" fill-opacity="1" rx="0" ry="0" transform=""/>
+    <rect x="60" y="60" width="150" height="90" fill="#94CEFF" fill-opacity="0.8" rx="0" ry="0" transform="rotate(-90 210 150)"/>
+    <rect x="60" y="60" width="150" height="90" fill="#94CEFF" fill-opacity="0.6" rx="0" ry="0" transform="rotate(-90 210 150) rotate(-90 210 150)"/>
+    <rect x="60" y="60" width="150" height="90" fill="#94CEFF" fill-opacity="0.4" rx="0" ry="0" transform="rotate(-90 210 150) rotate(-90 210 150) rotate(-90 210 150)"/>
+</svg>
+
+<!--
+CSS3 transform 在rotate旋转时，坐标系也随之旋转
+-->
+<div class="svg">
+    <div class="rect"></div>
+</div>
+
+<!--<script src="http://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>-->
+<script>
+
+</script>
+</body>
+</html>
