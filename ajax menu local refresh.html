@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/jquery.min.js"></script>
+    <style type="text/css">
+        html {
+            background: #FAFAD2;
+        }
+
+        h2 {
+            font-size: 35px;
+            line-height: 55px;
+            text-align: center;
+            background: #c1d5eb;
+            font-family: 'kaiti', 'microsoft yahei';
+            text-shadow: 0px 1px 0px #f2f2f2;
+        }
+
+        .content {
+            display: flex;
+            height: 400px;
+            width: 800px;
+            margin: 50px auto;
+            border: 1px solid #8F8F8F;
+            border-top: 3px solid #8F8F8F;
+        }
+
+        .content-left {
+            flex: 0 0 200px;
+            background-color: #fafafa;
+        }
+
+        .content-right {
+            flex: 1;
+            line-height: 400px;
+            font-size: 30px;
+            background-color: #DEDEDE;
+            text-align: center;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .menu {
+            display: block;
+            text-align: center;
+            vertical-align: middle;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #787878;
+        }
+
+        .menu:hover {
+            background: #DEDEDE;
+        }
+
+
+        .active {
+            background: #DEDEDE;
+        }
+    </style>
+</head>
+
+<body>
+<h2>ajax和history结合实现菜单局部刷新</h2>
+<div class="content">
+    <!-- 左侧内容 -->
+    <div class="content-left">
+        <ul>
+            <li class="menu">
+                <a href="#ajax?menuId=1" class="active">西湖区</a>
+            </li>
+            <li class="menu">
+                <a href="#ajax?menuId=2">滨江区</a>
+            </li>
+            <li class="menu">
+                <a href="#ajax?menuId=3">拱墅区</a>
+            </li>
+            <li class="menu">
+                <a href="#ajax?menuId=4">上城区</a>
+            </li>
+            <li class="menu">
+                <a href="#ajax?menuId=5">下城区</a>
+            </li>
+            <li class="menu">
+                <a href="#ajax?menuId=6">萧山区</a>
+            </li>
+            <li class="menu">
+                <a href="#ajax?menuId=7">余杭区</a>
+            </li>
+            <li class="menu">
+                <a href="#ajax?menuId=8">江干区</a>
+            </li>
+        </ul>
+        </ul>
+    </div>
+    <!-- 右侧内容 -->
+    <div class="content-right">
+        欢迎来到西湖区！
+    </div>
+</div>
+<script type="text/javascript">
+    var areaJson = {  //模拟后台传过来的值
+        1: "西湖区",
+        2: "滨江区",
+        3: "拱墅区",
+        4: "上城区",
+        5: "下城区",
+        6: "萧山区",
+        7: "余杭区",
+        8: "江干区"
+    };
+    var activeId = 1;  //定义当前id
+    $(function() {
+        var url = window.location.href;  //获取当前网址
+        if(url.split("=").length > 1) {  //在页面刷新时，判断当前页面是否是点击导航后的页面，如果是则通过id跳转到相应页面
+            var id = url.split("=")[1];
+            ajaxReq(id, $("ul .menu a[href='#ajax?menuId="+ id +"']"));
+        }
+    });
+
+    function ajaxReq(id, e) {
+        if(activeId != id) {  //判断传进来的参数id是否为当前id，如果是则不做操作，如果不是则跳转到id对应的页面
+            $(".content-left").find("a[href='#ajax?menuId="+ activeId +"']").removeClass("active");
+            $(e).addClass("active");  //为当前导航添加样式
+            var areaName = areaJson[id];
+            $(".content-right").empty();
+            $(".content-right").html("欢迎来到" + areaName + "！");
+            activeId = id;
+        }
+
+    }
+
+    //方法一：
+    $("ul .menu a").on("click", function() {  //当点击导航时跳转到相应页面
+        var url = this.href;
+        var param = url.split("=")[1];
+        ajaxReq(param, this);
+    });
+
+    //方法二：
+    //原理： 利用window.addEventListener("popstate", function(e) {});方法监听浏览器url的变化，判断当前的url动态局部刷新内容区域。
+    window.addEventListener("popstate", function(e) {
+        var url = window.location.href;  //获取当前网址
+        var id = url.split("=")[1];  //获取当前网址内的参数id
+        if(url.split("=").length > 1)  {   //如果id存在则跳转到id对应的页面，如果不存在则跳转到第一页
+            ajaxReq(id, $("ul .menu a[href='#ajax?menuId="+ id +"']"));
+        }else {
+            ajaxReq(1, $("ul .menu a[href='#ajax?menuId=1']"));
+        }
+    });
+
+</script>
+</body>
+</html>
