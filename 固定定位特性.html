@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>固定定位特性</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            height: 50px;
+            width: 100%;
+            position: fixed; top: 0;
+            /*left: 0;*/ left: 100px;  /* 固定定位且宽度为100%，left为多少则元素整体往右窜多少，此时元素的右端部分会直接被隐藏 */
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="float: right;">
+            <a>link1</a>
+            <a>link2</a>
+            <a>link3</a>
+        </div>
+    </header>
+</body>
+</html>
