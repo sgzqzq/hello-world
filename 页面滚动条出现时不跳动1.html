@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>页面滚动条出现时不跳动1</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .h-box{
+            width: 1000px;
+            margin: 0 auto;
+            height: 300px;
+            background-color: #eee;
+        }
+        @media screen and (min-width: 1150px){
+            .wraper{
+                margin-left: calc(100vw - 100%);
+                /*
+                100vw相对于浏览器的window.innerWidth
+                100%是可用宽度，是不含滚动条的宽度
+                calc(100vw - 100%)就是浏览器滚动条的宽度大小
+
+                calc是CSS3中的计算，IE10+浏览器支持，IE9浏览器基本支持(不能用在background-position上)
+                */
+            }
+        }
+    </style>
+</head>
+<body>
+<!--
+兼容性：支持IE9+以及其他现代浏览器。
+360兼容模式不支持
+-->
+    <div class="wraper">
+        <div class="h-box"></div>
+    </div>
+</body>
+</html>
