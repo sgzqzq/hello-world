@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>随机数聚拢</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<script>
+    var arr1=[];
+    for(var i=0;i<300;i++){
+        arr1.push(Math.random());
+    }
+    console.log('随机数',arr1,''); //范围0~1
+
+    var arr2=[];
+    for(var i1 in arr1){
+        arr2.push(1-arr1[i1]);
+    }
+    console.log('1-随机数',arr2,''); //范围1~0，感觉this step去掉也可以
+
+    var arr3=[];
+    for(var i2 in arr2){
+        arr3.push(1/arr2[i2]);
+    }
+    console.log('1/(1-随机数)',arr3,''); //1~oo
+
+    var arr4=[];
+    for(var i3 in arr3){
+        arr4.push(Math.ceil(arr3[i3]));
+    }
+    console.log('向上取整 (1/(1-随机数))',arr4,'');
+
+    var a10=0;
+    var a20=0;
+    var a30=0;
+    var a40=0;
+    var a50=0;
+    var aa=0;
+    for(var index in arr4){
+        if(arr4[index]>0 && arr4[index]<=10){
+            a10++;
+        }else if(arr4[index]>10 && arr4[index]<=20){
+            a20++;
+        }else if(arr4[index]>20 && arr4[index]<=30){
+            a30++;
+        }else if(arr4[index]>30 && arr4[index]<=40){
+            a40++;
+        }else if(arr4[index]>40 && arr4[index]<=50){
+            a50++;
+        }else{
+            aa++;
+        }
+    }
+
+    console.log(a10,a20,a30,a40,a50,aa); //随机数聚拢很明显，由小到大逐层递减
+</script>
+</body>
+</html>

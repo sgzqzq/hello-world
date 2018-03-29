@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>进度条londing动画</title>
+    <style>
+        .progress{
+            width: 120px;
+            height: 10px;
+            border: 1px solid #8cdda1;
+            padding: 2px;
+        }
+        .progress .bar{
+            height: 100%;
+            width: 0;
+            background-color: #8cdda1;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress">
+        <div class="bar"></div>
+    </div>
+<script>
+    var bar=document.querySelector('.bar');
+    var i=0;
+
+    function action(){
+        if(i<100){
+            i+=0.5;
+        }else{
+            i=0;
+        }
+        bar.style.width=i+'%';
+        window.requestAnimationFrame(action);
+    }
+
+    window.requestAnimationFrame(action);
+</script>
+</body>
+</html>

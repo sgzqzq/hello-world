@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>按钮3d缩放动画</title>
+    <style>
+        .btn{
+            font-size: 24px;
+            color: #fff;
+            font-weight: 700;
+            font-family: "Microsoft YaHei";
+            border: 0;
+            border-radius: 100px;
+            height: 65px;
+            -webkit-font-smoothing: antialiased; /* 对字体进行抗锯齿渲染 */
+            -webkit-appearance: none; /* 去除系统默认appearance的样式，常用于IOS下移除原生样式 */
+            transition: all 0.3s;
+            width: 400px;
+            display: block;
+            box-sizing: border-box;
+            padding: 10px 0 16px; /* 英文 */
+            background: linear-gradient(135deg,#BC4E9C 0,#F80759 100%);
+        }
+        .btn:hover{
+            cursor: pointer;
+            background-color: #f81663;
+            box-shadow: 0 7px 26px 0 rgba(0,0,0,.23);
+            transform: scale3d(1.03, 1.03, 1.03);
+        }
+        .btn.animate{
+            animation-iteration-count: infinite; /* 定义动画的播放次数 */
+            animation-name: pulse; /* 规定需要绑定到选择器的keyframe名称 */
+            animation-duration: 1s; /* 完成动画所花费时间 */
+            animation-fill-mode: both; /* 在动画显示之前，保持第一个关键帧的属性值；在动画完成后，保持最后一个关键帧的属性值 */
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale3d(1, 1, 1)
+            }
+            50% {
+                transform: scale3d(1.05, 1.05, 1.05);
+                -webkit-box-shadow: 0 7px 26px 0 rgba(0, 0, 0, .23);
+                -moz-box-shadow: 0 7px 26px 0 rgba(0, 0, 0, .23);
+                box-shadow: 0 7px 26px 0 rgba(0, 0, 0, .23)
+            }
+            to {
+                transform: scale3d(1, 1, 1)
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="btn animate">get started</button>
+
+</body>
+</html>

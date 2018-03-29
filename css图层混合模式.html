@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>css图层混合模式</title>
+    <style>
+        .img-box{
+            position: relative;
+            display: inline-block;
+        }
+        .img-box:hover::after{
+            opacity: 1;
+        }
+        .img-box::after{
+            position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 1;
+            content: '';
+            opacity: 0;
+            background-color: #006cff;
+            mix-blend-mode: screen; /* 图层混合模式中的滤色模式 */
+            transition: opacity .1s ease-out;
+        }
+        .img-box img{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<a class="img-box"><img src="./img%20200%20251.jpg"/></a>
+</body>
+</html>

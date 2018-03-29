@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>构造函数内this指针</title>
+</head>
+<body>
+<script>
+    // 在非严格模式下，直接调用fn()，this指向window对象，如果加上关键字new fn()，this指向f对象
+    //严格模式下，直接调用fn()，this指向undefined，程序会报错
+    function f(){
+        'use strict';
+        this.a=3;
+        console.log(this);
+    }
+    // f();
+    new f(); // this值 f{a: 3}
+
+</script>
+</body>
+</html>
