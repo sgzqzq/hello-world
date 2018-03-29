@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用canvas做网格背景</title>
+    <style>
+        canvas{
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="500" height="500"></canvas>
+
+<script>
+    var canvas=document.querySelector('#myCanvas');
+    var ctx=canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.setLineDash([1,24]);
+
+    ctx.moveTo(0,250);  //起始点
+    ctx.lineTo(500,250);  //终点
+
+    ctx.moveTo(250,0);
+    ctx.lineTo(250,500);
+
+    ctx.lineWidth=500;  //线宽
+    ctx.strokeStyle='#ddd';  //线条颜色
+    ctx.stroke();
+</script>
+</body>
+</html>

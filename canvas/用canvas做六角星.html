@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用canvas做六角星</title>
+    <style>
+        canvas{
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="500" height="500"></canvas>
+
+<script>
+    var canvas=document.querySelector('#myCanvas');
+    var ctx=canvas.getContext('2d');
+
+    var a=250,b=250,r=100; //a,b代表大圆圆心坐标，r代表半径
+    var arr=[
+            [a,b-r],
+            [a+r*Math.cos(Math.PI*2/3-Math.PI/2),b+r*Math.sin(Math.PI*2/3-Math.PI/2)],
+            [a-r*Math.cos(Math.PI*2/3-Math.PI/2),b+r*Math.sin(Math.PI*2/3-Math.PI/2)],
+
+            [a,b+r],
+            [a+r*Math.cos(Math.PI*2/3-Math.PI/2),b-r*Math.sin(Math.PI*2/3-Math.PI/2)],
+            [a-r*Math.cos(Math.PI*2/3-Math.PI/2),b-r*Math.sin(Math.PI*2/3-Math.PI/2)]
+    ]; //用二维数组存储6角星6个点的坐标
+
+    //先画出一个大圆
+    ctx.beginPath();
+    ctx.arc(a,b,r,0,Math.PI*2);
+    ctx.stroke();
+
+    //画出一个正三角
+    ctx.beginPath();
+    ctx.fillStyle='#faf276';
+    ctx.moveTo(arr[0][0],arr[0][1]); //moveTo()  起点
+    ctx.lineTo(arr[1][0],arr[1][1]); //lineTo()  终点
+    ctx.lineTo(arr[2][0],arr[2][1]);
+    ctx.closePath();
+    //ctx.stroke();  //storke()用来描边
+    ctx.fill();  //fill()用来填充颜色
+
+    //画出一个倒三角
+    ctx.beginPath();  //开始一段新路径
+    ctx.fillStyle='#faf276';
+    ctx.moveTo(arr[3][0],arr[3][1]);
+    ctx.lineTo(arr[4][0],arr[4][1]);
+    ctx.lineTo(arr[5][0],arr[5][1]);
+    ctx.closePath();  //为笔点和起始点添加连线
+    //ctx.stroke();
+    ctx.fill();
+
+    //在6角星的6个点分别画一个小圆
+    ctx.beginPath();
+    ctx.fillStyle='#369';
+    ctx.arc(arr[0][0],arr[0][1],10,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle='#369';
+    ctx.arc(arr[1][0],arr[1][1],10,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle='#369';
+    ctx.arc(arr[2][0],arr[2][1],10,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle='#f86a6a';
+    ctx.arc(arr[3][0],arr[3][1],10,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle='#f86a6a';
+    ctx.arc(arr[4][0],arr[4][1],10,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle='#f86a6a';
+    ctx.arc(arr[5][0],arr[5][1],10,0,Math.PI*2);
+    ctx.fill();
+
+</script>
+</body>
+</html>

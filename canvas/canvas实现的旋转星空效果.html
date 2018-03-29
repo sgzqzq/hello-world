@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>canvas实现的旋转星空效果-张鑫旭</title>
+    <style>
+        .header {
+            position: relative;
+            background: url(//combo.b.qq.com/store/src/themes/mpPortal/register/images/index/background.jpg) center bottom no-repeat;
+            height: 800px;
+            overflow: hidden;
+        }
+        .header > canvas {
+            position: absolute;
+            width: 1920px;
+            height: 100%; /* canvas的样式宽高只是相当于伸缩画布 */
+            left: 50%; /* 向右移动容器的一半，然后再向左移动子元素的一半，子元素即可相对于容器居中 */
+            margin-left: -960px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <!-- canvas的实际宽高是由canvas标签上的width、height属性决定的，其上坐标也是相对于width、height属性所设置的宽高来定位的 -->
+    <canvas id="starCanvas" width="1920" height="1000"></canvas><!--背景图片size也是1920*1000-->
+</div>
+<script>
+    // 星星效果
+    // (function(){})是匿名函数，主要利用函数内的变量作用域，避免产生全局变量，影响整体页面环境，增加代码的兼容性。
+    (function() {
+
+        if (!window.addEventListener) return; // 如果window.addEventListener函数不存在，则后面的代码不会被执行
+
+        var canvas = document.querySelector("#starCanvas");
+        var context = canvas.getContext("2d");
+
+        var stars = {},
+                particleIndex = 0, // 星星数量
+                settings = {
+                    r: 1400,                // 根据是设计稿确定的轨迹半径（我算的半径是1298）
+                    height: 260,           // 露出的圆弧的高度（地球的高度，星星是围绕在圆弧外面的）
+                    density: 300,
+                    maxLife: 100,
+                    groundLevel: canvas.height, // 地平面高度
+                    leftWall: 0, // 星星的横坐标最小值
+                    rightWall: canvas.width, // 星星的横坐标最大值
+                    alpha: 0.0, // 星星的透明度
+                    maxAlpha: 1 // 星星的最大透明度
+                };
+
+        var getMinRandom = function() {
+            var rand = Math.random();
+            // step的大小决定了星星靠近地球的聚拢程度，
+            // step = Math.ceil(2 / (1 - rand))就聚拢很明显
+            var step = Math.ceil(1 / (1 - rand)); // Math.ceil()方法对一个数进行上舍入
+            var arr = [];
+            for (var i=0; i<step; i++) { // 基本循环次数越多，得到的最小值越小
+                arr.push(Math.random());
+            }
+
+            return Math.min.apply(null, arr); // 数组本身没有min方法，所以借用了Math.min方法
+            // 返回的随机数最小值中，大值多，小值少
+        };
+
+        function resizeCanvas() {
+            canvas.width = 1920;
+            canvas.height = 800; // 修改了canvas的属性宽高
+            settings.rightWall = canvas.width;
+            settings.groundLevel = canvas.height; // canvas.width和canvas.height获取的宽高是canvas标签上width和height属性设置的宽高
+            settings.height = 260 + (canvas.height - 800) / 2;
+            redraw();
+        }
+
+        resizeCanvas();
+
+        window.addEventListener('resize', resizeCanvas);
+
+        function redraw() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.fillStyle = "rgba(0,0,0,0)";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function Star() {
+            // 圆的轨迹方程式为：(x-a)²+(y-b)²=r²
+            // 因此，已知x, 则y = Math.sqrt(r² - (x-a)²) + b;
+            // 其中，圆心是(a, b)
+            // 在本例子中
+            // 圆心坐标是(canvas.width/2, canvas.height - 600 + r);
+            // 圆心的纵坐标画画图就出来了
+            var a = canvas.width/2, b = canvas.height - settings.height + settings.r;
+            // 因此，已知横坐标随机
+            this.x = Math.floor(Math.random() * canvas.width); // Math.floor()对数字进行下舍入
+            // 纵坐标需要在圆弧以上
+            // 越往上，越稀疏
+            this.offsety = getMinRandom() * (canvas.height - settings.height); // 大值多，小值少
+            this.y = b - Math.sqrt(settings.r * settings.r - (this.x - a) * (this.x - a)) - this.offsety; // 假设圆位于第四象限，则 x 为正，y 为负
+
+            this.vx = Math.random() * 0.05 + 0.025;    // 水平偏移，也是移动速度，范围 0到0.075 之间
+
+            // 星星的尺寸
+            this.particleSize = 0.5 + (Math.random() + 0.1 / 4); // 每个星星的尺寸都不一样，星星的半径范围在0.525和1.525之间
+            particleIndex++;
+            stars[particleIndex] = this;
+            this.alpha = 0.0; // 星星的透明度设为0
+            this.maxAlpha = 0.2 + (this.y/canvas.height) * Math.random() * 0.8; // 每个星星的最大透明度都不一样
+            this.alphaAction = 1; // 星星的透明度变化设为“慢慢加大”
+        }
+
+        Star.prototype.draw = function() {
+            // 横坐标移动
+            this.x += this.vx;
+            // 根据切线方向进行偏移
+            // y坐标
+            this.y = canvas.height - settings.height + settings.r - Math.sqrt(settings.r * settings.r - (this.x - canvas.width/2) * (this.x - canvas.width/2)) - this.offsety;
+
+            // 透明度先慢慢变亮，再慢慢变暗
+            if (this.alphaAction == 1) { // 当alphaAction为1是，星星的透明度慢慢增大
+                if (this.alpha < this.maxAlpha ) {
+                    this.alpha += 0.005;
+                } else {
+                    this.alphaAction = -1;
+                }
+            } else { // 当alphaAction为-1是，星星的透明度慢慢减小
+                if (this.alpha > 0.2 ) { // 星星的最小透明度为0.2
+                    this.alpha -= 0.002;
+                } else {
+                    this.alphaAction = 1;
+                }
+            }
+
+            if ( this.x + (this.particleSize*2) >= settings.rightWall ) { // 如果星星运动到了画布的最右边，那么让它的位置从新回到画布的最左边
+                // x到左侧
+                this.x = this.x - settings.rightWall;
+            }
+
+            // 绘制星星
+            context.beginPath();
+            context.fillStyle="rgba(255,255,255," + this.alpha.toString() + ")";
+            context.arc(this.x, this.y, this.particleSize, 0, Math.PI*2, true); // 默认false
+            context.closePath();
+            context.fill();
+        }
+
+        function render() {
+
+            redraw();
+
+            // 星星的数目
+            // IE下CUP性能有限，数目小
+            var length = 400;
+            if (!history.pushState) {
+                // history.pushState()方法向浏览器历史添加了一个状态，ie9及以下不支持；此处用来判断当前浏览器是否为ie9以下浏览器。
+                // IE9
+                length = 200;
+            } else if (document.msHidden != undefined) {
+                // documnet.msHidden告诉程序员当前页面是否是用户正在观看的页面，其值为true 或 false，在ie9以下和其他浏览器中值为undefined，只有ie10以上值为false；所以此处用来判断当前浏览器是否为ie10以上。
+                // IE10+
+                length = 300;
+            }
+
+            if ( Object.keys(stars).length > length ) {
+                // Object.keys()方法返回一个由给定对象自身可枚举类型所组成的数组；json对象无法直接获取长度，但可通过Object.keys(对象).length来获取。
+                settings.density = 0;
+            }
+
+            for ( var i = 0; i < settings.density; i++ ) {
+                if ( Math.random() > 0.97 ) {
+                    new Star();
+                }
+            }
+
+            // 星星实时移动
+            for ( var i in stars ) {
+                stars[i].draw();
+            }
+
+            requestAnimationFrame(render);
+        }
+
+        if (!window.requestAnimationFrame) {
+            window.requestAnimationFrame = function(fn) {
+                setTimeout(fn, 17);
+            };
+        }
+
+        render();
+
+    })();
+
+</script>
+</body>
+</html>
