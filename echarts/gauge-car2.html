@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <style>
+           body{
+               background-color: #00001e;
+           }
+       </style>
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+           var dom = document.getElementById("container");
+           var myChart = echarts.init(dom);
+           var app = {};
+           option = null;
+           option = {
+               tooltip: {
+                   formatter: "{a} <br/>{c} {b}"
+               },
+               toolbox: {
+                   show: true,
+                   feature: {
+                       restore: {show: true},
+                       saveAsImage: {show: true}
+                   }
+               },
+               series: [
+                   {
+                       name: '存储空间利用率',
+                       type: 'gauge',
+                       z: 3,
+                       center: ['50%', '50%'],
+                       startAngle: 180,
+                       endAngle: 0,
+                       min: 0,  // 仪表盘最小的数据值
+                       max: 100, // 仪表盘最大的数据值
+                       splitNumber: 10,  // 仪表盘刻度的分割段数
+                       radius: '50%',
+                       axisLine: {            // 坐标轴线
+                           lineStyle: {       // 属性lineStyle控制线条样式
+                               width: 135, //轴线宽度
+                               color: [[0.8, '#4fb6fc'], [1, '#3838e5']], //仪表盘的轴线可以被分成不同颜色的多段。每段的结束位置和颜色可以通过一个数组来表示。
+                               opacity: 0.95, //图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+                           }
+                       },
+                       axisTick: {            // 坐标轴小标记
+                           length: 10,        // 属性length控制线长
+                           lineStyle: {       // 属性lineStyle控制线条样式
+                               color: '#fff',
+                               opacity: 0.6,
+                           }
+                       },
+                       splitLine: {           // 分隔线
+                           length: 18,         // 属性length控制线长
+                           lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                               color: '#fff',
+                               opacity: 0.6,
+                               type: 'dotted',
+                               width: 2,
+                           }
+                       },
+                       pointer: {
+                           length: '85%',
+                           width: 8,
+                       },
+                       axisLabel: { //刻度标签
+                           backgroundColor: 'rgba(0,0,0,0.1)', //文字块背景色
+                           borderRadius: 2,
+                           color: '#eee',
+                           padding: 3,
+                           textShadowBlur: 2,
+                           textShadowOffsetX: 1,
+                           textShadowOffsetY: 1,
+                           textShadowColor: '#222'
+                       },
+                       itemStyle:{
+                           color: '#0099f2',
+                           shadowColor: 'rgba(0, 0, 0, 0.1)',
+                           shadowBlur: 10,
+                       },
+                       title: {
+                           // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                           fontWeight: 'normal',
+                           fontSize: 17,
+                           fontStyle: 'normal',
+                           color: '#fff',
+                           offsetCenter: [0, '18%'], //相对于仪表盘中心的偏移位置，可以是绝对的数值，也可以是相对于仪表盘半径的百分比。
+                       },
+                       detail: {
+                           // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                           formatter: function (value) {
+                               //value = (value + '').split('.'); //split()把一个字符串分割成字符串数组
+                               //value.length < 2 && (value.push('00'));
+                               //return ('00' + value[0]).slice(-2) + '.' + (value[1] + '00').slice(0, 2);
+                               return 60+'%';
+                           },
+                           offsetCenter:[0, '-37%'],
+                           fontWeight: 'bolder',
+                           fontSize: 30,
+                           borderRadius: 3,
+                           backgroundColor: 'rgba(255,255,255,0.3)',
+                           borderColor: 'rgba(255,255,255,0.7)',
+                           //shadowBlur: 5, //文字块的背景阴影长度
+                           /*shadowColor: '#333',
+                            shadowOffsetX: 0,
+                            shadowOffsetY: 3,*/
+                           borderWidth: 2,
+                           /*textBorderColor: '#000',
+                            textBorderWidth: 2,
+                            textShadowBlur: 2,
+                            textShadowColor: '#fff',
+                            textShadowOffsetX: 0,
+                            textShadowOffsetY: 0,*/
+                           fontFamily: 'Arial',
+                           width: '50%', //文字块的宽度
+                           color: '#fff',
+                           rich: {}
+                       },
+                       data: [{value: 40, name: '存储空间利用率'}]
+                   },
+               ]
+           };
+
+           setInterval(function () {
+               option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+               option.series[1].data[0].value = (Math.random() * 7).toFixed(2) - 0;
+               option.series[2].data[0].value = (Math.random() * 2).toFixed(2) - 0;
+               option.series[3].data[0].value = (Math.random() * 2).toFixed(2) - 0;
+               myChart.setOption(option, true);
+           }, 2000);
+
+           if (option && typeof option === "object") {
+               myChart.setOption(option, true);
+           }
+
+           //echarts图表自适应
+           window.onresize = function () {
+               myChart.resize();
+           };
+       </script>
+   </body>
+</html>
