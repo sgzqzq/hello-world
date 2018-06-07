@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>按钮交互动效</title>
+    <style>
+        html{
+            font-size: 62.5%;
+            box-sizing: border-box;
+
+            -webkit-font-smoothing: antialiased; /*字体抗锯齿渲染*/
+            /*
+            -webkit-font-smoothing它有三个属性值：
+            none：对低像素的文本比较好
+            subpixel-antialiased：默认值
+            antialiased：抗锯齿很好
+
+            子元素可继承
+            */
+
+            -webkit-tap-highlight-color: transparent;
+            /*
+            这个属性只用于iOS (iPhone和iPad)
+            当你点击一个链接或者通过Javascript定义的可点击元素的时候，它就会出现一个半透明的灰色背景。
+            要重设这个表现，你可以设置-webkit-tap-highlight-color为任何颜色
+
+            子元素可继承
+            */
+        }
+        body{
+            margin: 0; padding: 50px;
+        }
+        *,*::before,*::after{
+            box-sizing: inherit;
+        }
+        ::selection,*::selection{
+            background: #DAA25A;
+            color: white;
+        }
+        a > span{
+            color: inherit;
+            font: inherit;
+            text-decoration: inherit;
+            line-height: inherit;
+            margin-top: 0;
+            font-feature-settings: "pnum", "liga", "clig", "calt", "salt" 1, "frac", "ordn", "kern";
+            /*
+            font-feature-settings 属性，可以在底层访问字体支持的所有 OpenType 特性。
+            该属性就像一个“紧急逃生舱口”，利用该属性可以访问通常很少使用的更多高级特性。
+            该属性的值可以为“normal”（对字形选项和定位选项不作任何更改）
+            或由一个或多个特性（以逗号分隔）构成的特性列表。
+            每一种特性均由一个 4 字符 OpenType 特性标记和一个值组成。
+            特性值为 off 或 0 表示禁用该特性
+            特性值为 on 或任何正整数表示启用该特性
+            如果没有为特性指定值，则假定值为 1。
+
+            资料网址：https://blog.csdn.net/ywb201314/article/details/48806069
+            */
+        }
+        .button{
+            font-size: 1.3rem;
+            font-family: "Open Sans", sans-serif;
+            position: relative;
+            font-weight: 700;
+            line-height: 1.4;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+            color: #DAA25A;
+            display: inline-flex;
+            margin: 0;
+            padding: 0.875em 1.428571429em;
+            letter-spacing: 0.2em;
+
+            text-align: center;
+            font-style: normal;
+
+            word-wrap: break-word; /*在长单词或 URL 地址内部进行换行*/
+        }
+        .button::after{ /*按钮底部边框*/
+            content: "";
+            display: block;
+            position: absolute; left: 50%; bottom: 0; transform: translatex(-50%);
+            width: 80%; height: 1px;
+            transition: width 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0.4s, background 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+            background: #DAA25A;
+        }
+        .button span{
+            display: block;
+            position: absolute;
+            width: 100%; top: 0; left: 0;
+            transition: all 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9);
+        }
+        .button span::before, .button span::after{
+            content: "";
+            display: block;
+            position: absolute;
+            background: #DAA25A;
+            transition: transform 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9);
+        }
+        .button span:first-child{
+            height: 100%;
+        }
+        .button span:first-child::before, .button span:first-child::after{
+            bottom: 0;
+            width: 1px; height: 100%;
+            transform: scale3d(1, 0, 1);
+            transform-origin: bottom center;
+            transition: transform 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0.2s, background 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+        }
+        .button span:first-child::before{ /*按钮左边框*/
+            left: 0;
+        }
+        .button span:first-child::after{ /*按钮右边框*/
+            right: 0;
+        }
+        .button span:last-child{
+            width: 100%; height: 1px;
+        }
+        .button span:last-child::before{ /*按钮上边框左半部分*/
+            left: 0;
+            transform-origin: bottom left;
+        }
+        .button span:last-child::before, .button span:last-child::after{
+            height: 1px;
+            width: 100%;
+            bottom: 0;
+            transform: scale3d(0, 1, 1);
+            transition: transform 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s, background 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+        }
+        .button span:last-child::after{ /*按钮上边框右半部分*/
+            right: 0;
+            transform-origin: bottom right;
+        }
+        .button:hover{
+            opacity: 1;
+            outline: 0;
+            color: #333E48 !important;
+            text-decoration: none;
+            transition: color 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+        }
+        .button:hover::after{
+            width: 100%;
+            background: #232F39;
+            transition: width 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s, background 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+        }
+        .button:hover span:first-child::before, .button:hover span:first-child::after{
+            transform: scale3d(1, 1, 1);
+            background: #232F39;
+            transition: transform 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0.2s, background 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+        }
+        .button:hover span:last-child::before, .button:hover span:last-child::after{
+            transform: scale3d(1, 1, 1);
+            background: #232F39;
+            transition: transform 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0.4s, background 0.2s cubic-bezier(0.2, 0.3, 0.25, 0.9) 0s;
+        }
+    </style>
+</head>
+<body>
+    <!--
+    利用css3伪类、transition延迟过渡效果，做出的按钮交互动效
+    -->
+    <a class="button" href="#">Learn more<span></span><span></span></a>
+</body>
+</html>
