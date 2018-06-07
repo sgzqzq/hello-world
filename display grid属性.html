@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>display:grid属性</title>
+    <style>
+        body, div{
+            margin: 0; padding: 0;
+        }
+        /*
+        grid布局即网格布局，每个网格都有起止线。
+        兼容性：
+        360兼容模式和极速模式都不兼容，
+        猎豹浏览器不兼容
+        IE、IE Edge不兼容
+        */
+        .wrapper{
+            width: 100vw; height: 100vh;
+            display: grid; /*父级元素属性*/
+
+            /*grid-template-columns: auto 15px auto 15px auto;*/
+            /*父级元素属性，表示第1列宽度auto，第2列15px(此列可作为列与列之间的间隙)...*/
+
+            grid-template-columns: repeat(5,calc(100vw/5)); /* repeat()只适用于grid布局相关属性，表示重复写5次calc(100vw/5) */
+
+            grid-template-rows: auto 15px auto;
+            /*父级元素属性，表示第1行高度自适应内容，第2行15px(此列可作为列与列之间的间隙)...*/
+        }
+        .wrapper .m{
+            background-color: #eee;
+            transition: all 0.5s;
+        }
+
+        /* 子元素属性，定义网格线的位置。通过在子元素中定义网格线的位置，可以将网格位置互换 */
+        .move6{
+            /*
+            grid-column-start: 5;
+            grid-column-end: 6;
+            grid-row-start: 3;
+            grid-row-end: 4;
+            */
+
+            /* 写法3：*/
+            grid-area: 3/5/4/6; /* 分别是 行起始位置/列起始位置/行结束位置/列结束位置 */
+        }
+        .move1{
+            /* 写法1：*/
+            /*
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 2;
+            */
+
+            /* 写法2：*/
+            grid-column: 1/2;
+            grid-row: 1/2;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="m one">1</div>
+    <div></div>
+    <div class="m">2</div>
+    <div></div>
+    <div class="m">3</div>
+
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <div class="m">4</div>
+    <div></div>
+    <div class="m">5</div>
+    <div></div>
+    <div class="m six">6</div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $('.one').on('click',function(){
+        $('.one').addClass('move6');
+        $('.six').addClass('move1');
+    });
+</script>
+</body>
+</html>
