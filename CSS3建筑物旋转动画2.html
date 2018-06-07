@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CSS3建筑物旋转动画2</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .stage{
+            width: 100vw; height: 100vh;
+            perspective: 2200px;
+            perspective-origin:50% 0%;
+            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+        .container{
+            position: absolute; left: 50%; margin-left: -250px; top: 56%;
+            width: 500px; height: 100%;
+            transform-style: preserve-3d;
+            /*transform:  rotateY(-135deg);*/
+            animation: ro 10s linear infinite;
+        }
+        .con{
+            position: absolute; left: 50%; margin-left: -250px;
+            width: 500px; height: 100px; /* 所有容器的宽高一致，所以目前中心点一致 */
+            /*background-color: rgba(0, 0, 0, 0.02);*/
+            transform-style: preserve-3d;
+        }
+        .con-arc{
+            transform: translateX(-55px);
+        }
+        .con-building2{
+            transform: translateX(155px);
+        }
+        .con-win3-face{
+            top: -230px;
+        }
+        .con-win3-back{
+            top: -230px;
+            transform: rotateY(180deg);
+        }
+        .con-win2-face{
+            top: -170px;
+        }
+        .con-win2-back{
+            top: -170px;
+            transform: rotateY(180deg);
+        }
+        .con-win1-face{
+            top: -110px;
+        }
+        .con-win1-back{
+            top: -110px;
+            transform: rotateY(180deg);
+        }
+        .con-swin-face{
+            transform: translateX(155px) translateY(-177px) translateZ(84px);
+        }
+        .con-swin-backface{
+            transform: rotateY(180deg) translateZ(84px) translateY(-177px) translateX(-155px);
+        }
+        .con-swin2{
+            transform: translateY(60px);
+        }
+        .con-swin1{
+            transform: translateY(120px);
+        }
+        .con-swin-long2{
+            transform: translateY(60px);
+        }
+        .con-swin-long1{
+            transform: translateY(120px);
+        }
+        .con-swin-longs{
+            transform: rotateY(90deg) translateZ(194px) translateY(-177px);
+        }
+        .piece{
+            transition: transform 5s linear;
+            position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto;
+            transform-style: preserve-3d;
+            background-color: rgba(0, 163, 254, 0.20);
+            border: 1px solid rgba(0, 163, 254, 1);
+            box-sizing: border-box;
+        }
+        @keyframes ro{
+            0%{
+                transform: rotateY(0deg);
+            }
+            100%{
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<!--
+对元素应用变换后，可能会影响浏览器对元素宽高的实时显示
+注意：各个容器的变换中心位置差异
+注意：先旋转，后平移，否则平移可能会失效
+
+整体思路：
+一个3D建筑的构成相对复杂，可以将组成建筑的各个零件分组放在变换中心相同的容器中，再对这些容器进行transform，容器中仍可包含容器，无限嵌套。
+-->
+<div class="stage">
+    <div class="container">
+        <!--底座-->
+        <div class="con con-ground">
+            <div class="piece" style="width: 500px; height: 14px;transform: rotateY(0deg) translateZ(250px);"></div>
+            <div class="piece" style="width: 500px; height: 14px;transform: rotateY(90deg) translateZ(250px);"></div>
+            <div class="piece" style="width: 500px; height: 14px;transform: rotateY(180deg) translateZ(250px);"></div>
+            <div class="piece" style="width: 500px; height: 14px;transform: rotateY(270deg) translateZ(250px);"></div>
+            <div class="piece" style="width: 500px; height: 500px;transform: rotateX(90deg) translateZ(7px);"></div>
+            <div class="piece" style="width: 500px; height: 500px;transform: rotateX(-90deg) translateZ(7px);"></div>
+        </div>
+        <div class="con con-arc">
+            <div class="con">
+                <!--高楼外墙-->
+                <div class="piece" style="width: 200px; height: 300px;transform: translateY(-157px) translateZ(-100px); "></div>
+                <div class="piece" style="width: 200px; height: 300px;transform: translateY(-157px) translateZ(100px); "></div>
+                <div class="piece" style="width: 200px; height: 300px;transform: translateY(-157px) rotateY(90deg) translateZ(100px); "></div>
+                <div class="piece" style="width: 200px; height: 300px;transform: translateY(-157px) rotateY(-90deg) translateZ(100px); "></div>
+                <div class="piece" style="width: 200px; height: 200px; transform: rotateX(90deg) translateZ(307px);"></div>
+
+                <!--车库-->
+                <div class="piece" style="width: 170px; height: 60px;transform: translateY(-37px) rotateY(90deg) translateX(-15px) translateZ(80px);"></div>
+                <div class="piece" style="width: 170px; height: 60px;transform: translateY(-37px) rotateY(-90deg) translateX(15px) translateZ(80px);"></div>
+                <div class="piece" style="width: 160px; height: 60px;transform: translateY(-37px) translateZ(100px);"></div>
+                <div class="piece" style="width: 160px; height: 60px;transform: translateY(-37px) translateZ(-70px);"></div>
+                <div class="piece" style="width: 160px; height: 170px;transform: rotateX(-90deg) translateY(-15px) translateZ(-67px);"></div><!--当rotateX和translateZ为正数时元素消失-->
+
+
+
+
+                <!--<div class="piece" style="width: 40px; height: 40px; transform: translateY(-257px) translateX(60px) translateZ(100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-197px) translateX(-60px) translateZ(100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-197px) translateZ(100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-197px) translateX(60px) translateZ(100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-137px) translateX(-60px) translateZ(100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-137px) translateZ(100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-137px) translateX(60px) translateZ(100px);"></div>-->
+
+                <!--<div class="piece" style="width: 40px; height: 40px; transform: translateY(-257px) translateX(-60px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-257px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-257px) translateX(60px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-197px) translateX(-60px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-197px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-197px) translateX(60px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-137px) translateX(-60px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-137px) translateZ(-100px);"></div>
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-137px) translateX(60px) translateZ(-100px);"></div>-->
+            </div>
+            <div class="con con-win3-face">
+                <!--三楼窗户前 中-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(20px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-20px);"></div><!--左-->
+
+                <!--三楼窗户前 左-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(-60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(-60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(-60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-40px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-80px);"></div><!--左-->
+
+                <!--三楼窗户前 右-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(80px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(40px);"></div><!--左-->
+            </div>
+            <div class="con con-win3-back">
+                <!--三楼窗户前 中-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(20px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-20px);"></div><!--左-->
+
+                <!--三楼窗户前 左-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(-60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(-60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(-60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-40px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-80px);"></div><!--左-->
+
+                <!--三楼窗户前 右-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(80px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(40px);"></div><!--左-->
+            </div>
+            <div class="con con-win2-face">
+                <!--三楼窗户前 中-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(20px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-20px);"></div><!--左-->
+
+                <!--三楼窗户前 左-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(-60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(-60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(-60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-40px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-80px);"></div><!--左-->
+
+                <!--三楼窗户前 右-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(80px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(40px);"></div><!--左-->
+            </div>
+            <div class="con con-win2-back">
+                <!--三楼窗户前 中-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(20px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-20px);"></div><!--左-->
+
+                <!--三楼窗户前 左-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(-60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(-60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(-60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-40px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-80px);"></div><!--左-->
+
+                <!--三楼窗户前 右-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(80px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(40px);"></div><!--左-->
+            </div>
+            <div class="con con-win1-face">
+                <!--三楼窗户前 中-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(20px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-20px);"></div><!--左-->
+
+                <!--三楼窗户前 左-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(-60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(-60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(-60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-40px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-80px);"></div><!--左-->
+
+                <!--三楼窗户前 右-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(80px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(40px);"></div><!--左-->
+            </div>
+            <div class="con con-win1-back">
+                <!--三楼窗户前 中-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(20px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-20px);"></div><!--左-->
+
+                <!--三楼窗户前 左-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(-60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(-60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(-60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-40px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(-80px);"></div><!--左-->
+
+                <!--三楼窗户前 右-->
+                <div class="piece" style="width: 40px; height: 40px; transform: translateY(-27px) translateZ(84px) translateX(60px);"></div><!--面-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-47px) translateY(-92px) translateX(60px);"></div><!--上-->
+                <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateZ(-7px) translateY(-92px) translateX(60px);"></div><!--下-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(80px);"></div><!--右-->
+                <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateY(-27px) translateX(-92px) translateZ(40px);"></div><!--左-->
+            </div>
+            <div class="con con-building2">
+                <!--低楼外墙-->
+                <div class="piece" style="width: 110px; height: 210px;transform: translateY(-112px) translateZ(-100px); "></div><!--后-->
+                <div class="piece" style="width: 110px; height: 210px;transform: translateY(-112px) translateZ(100px); "></div><!--前-->
+                <div class="piece" style="width: 200px; height: 210px;transform: translateY(-112px) rotateY(90deg) translateZ(55px); "></div><!--右-->
+                <div class="piece" style="width: 200px; height: 210px;transform: translateY(-112px) rotateY(-90deg) translateZ(55px); "></div><!--左-->
+                <div class="piece" style="width: 110px; height: 200px; transform: rotateX(90deg) translateZ(217px);"></div><!--顶-->
+            </div>
+            <div class="con con-swin-face">
+                <!--矮楼窗户前-->
+                <div class="con con-swin3">
+                    <div class="piece" style="width: 40px; height: 40px; "></div><!--面-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(-20px);"></div><!--上-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(20px);"></div><!--下-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(-20px);"></div><!--左-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(20px);"></div><!--右-->
+                </div>
+                <div class="con con-swin2">
+                    <div class="piece" style="width: 40px; height: 40px; "></div><!--面-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(-20px);"></div><!--上-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(20px);"></div><!--下-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(-20px);"></div><!--左-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(20px);"></div><!--右-->
+                </div>
+                <div class="con con-swin1">
+                    <div class="piece" style="width: 40px; height: 40px; "></div><!--面-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(-20px);"></div><!--上-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(20px);"></div><!--下-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(-20px);"></div><!--左-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(20px);"></div><!--右-->
+                </div>
+            </div>
+            <div class="con con-swin-backface">
+                <!--矮楼窗户前-->
+                <div class="con con-swin3">
+                    <div class="piece" style="width: 40px; height: 40px; "></div><!--面-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(-20px);"></div><!--上-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(20px);"></div><!--下-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(-20px);"></div><!--左-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(20px);"></div><!--右-->
+                </div>
+                <div class="con con-swin2">
+                    <div class="piece" style="width: 40px; height: 40px; "></div><!--面-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(-20px);"></div><!--上-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(20px);"></div><!--下-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(-20px);"></div><!--左-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(20px);"></div><!--右-->
+                </div>
+                <div class="con con-swin1">
+                    <div class="piece" style="width: 40px; height: 40px; "></div><!--面-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(-20px);"></div><!--上-->
+                    <div class="piece" style="width: 40px; height: 16px; transform: rotateX(-90deg) translateY(-8px) translateZ(20px);"></div><!--下-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(-20px);"></div><!--左-->
+                    <div class="piece" style="width: 16px; height: 40px; transform: rotateY(90deg) translateX(-8px) translateZ(20px);"></div><!--右-->
+                </div>
+            </div>
+            <div class="con con-swin-longs">
+                <div class="con con-swin-long3">
+                    <div class="piece" style="width:130px; height:40px;"></div><!--面-->
+                    <div class="piece" style="width:130px; height:16px; transform:rotateX(90deg) translateY(8px) translateZ(20px);"></div><!--上-->
+                    <div class="piece" style="width:130px; height:16px; transform:rotateX(90deg) translateY(8px) translateZ(-20px);"></div><!--下-->
+                    <div class="piece" style="width:16px; height:40px; transform: rotateY(90deg) translateX(-8px) translateZ(-65px);"></div><!--左-->
+                    <div class="piece" style="width:16px; height:40px; transform: rotateY(90deg) translateX(-8px) translateZ(65px);"></div><!--右-->
+                </div>
+                <div class="con con-swin-long2">
+                    <div class="piece" style="width:130px; height:40px;"></div><!--面-->
+                    <div class="piece" style="width:130px; height:16px; transform:rotateX(90deg) translateY(8px) translateZ(20px);"></div><!--上-->
+                    <div class="piece" style="width:130px; height:16px; transform:rotateX(90deg) translateY(8px) translateZ(-20px);"></div><!--下-->
+                    <div class="piece" style="width:16px; height:40px; transform: rotateY(90deg) translateX(-8px) translateZ(-65px);"></div><!--左-->
+                    <div class="piece" style="width:16px; height:40px; transform: rotateY(90deg) translateX(-8px) translateZ(65px);"></div><!--右-->
+                </div>
+                <div class="con con-swin-long1">
+                    <div class="piece" style="width:130px; height:40px;"></div><!--面-->
+                    <div class="piece" style="width:130px; height:16px; transform:rotateX(90deg) translateY(8px) translateZ(20px);"></div><!--上-->
+                    <div class="piece" style="width:130px; height:16px; transform:rotateX(90deg) translateY(8px) translateZ(-20px);"></div><!--下-->
+                    <div class="piece" style="width:16px; height:40px; transform: rotateY(90deg) translateX(-8px) translateZ(-65px);"></div><!--左-->
+                    <div class="piece" style="width:16px; height:40px; transform: rotateY(90deg) translateX(-8px) translateZ(65px);"></div><!--右-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>

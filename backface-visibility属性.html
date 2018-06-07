@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>backface-visibility属性</title>
+    <style>
+        body{
+            margin: 0;
+            perspective-origin: 50% 50%;
+            transform-style: preserve-3d;
+            /*perspective: 100px;*/
+        }
+        img{
+            display: block;
+            margin: 100px auto;
+        }
+        .img1{
+            transform: rotateY(180deg);
+            /*backface-visibility: hidden;*/
+            /*
+             backface-visibility 背面可见性
+             默认情况下元素背面可见，当值为hidden时，背面不可见，
+             且这个属性要应用在需要变换的元素上
+             */
+        }
+    </style>
+</head>
+<body>
+
+<img class="img" src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg"/>
+<img class="img img1" src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg"/>
+
+</body>
+</html>

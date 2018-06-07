@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>css渐变水彩下划线效果</title>
+    <style>
+        body{
+            font-family: Soleil,Helvetica,Arial,sans-serif;
+            font-size: 18px;
+            line-height: 1.75rem;
+        }
+        .bg{
+            display: block;
+            width: 300px;
+        }
+        .bg span{
+            display: inline; /*必加项*/
+            background-image: linear-gradient(rgba(255, 0, 0, 0.33), rgba(0, 0, 255, 0.3));
+            background-size: 100% 10px;
+            background-repeat: no-repeat;
+            background-position: 4px bottom;
+
+            /* 利用css3渐变还可以做彩色渐变边框 */
+        }
+    </style>
+</head>
+<body>
+    <a class="bg">
+        <span>
+            FHOKE 这个网站的导航设计也不算复杂，实际上就是LOGO 和右上角的菜单按钮，它是没有底色，并且随着页面内容的背景颜色变化而自动匹配对比强烈的黑色或者白色。这样的设计让导航无缝地融入到整个页面的布局当中，并且让用户可以随时便捷地点击导航中的内容。
+        </span>
+    </a>
+</body>
+</html>

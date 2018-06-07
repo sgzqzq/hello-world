@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>css3立方体旋转动画</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .stage{
+            width: 80%; height: 400px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+            margin: 15px auto;
+            position: relative;
+
+            perspective: 550px;
+            perspective-origin: 50% 50%;
+            transform-style: preserve-3d;
+        }
+        .container{
+            width: 200px; height: 200px;
+            position: absolute; top: 50%; margin-top: -100px;
+            left: 50%; margin-left: -100px;
+            transition: transform 1s;
+            transform-style: preserve-3d; /* 为需要transform的元素应用preserve-3d，才能接近现实世界的效果 */
+            animation: ro 6s linear infinite;
+        }
+        .piece{
+            transform-style: preserve-3d;
+            width: 200px; height: 200px;
+            position: absolute; top: 0; left: 0;
+        }
+        @keyframes ro{
+            0%{
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            50%{
+                transform: rotateX(0deg) rotateY(360deg);
+
+            }
+            100%{
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<!--ie不兼容-->
+<div class="stage">
+    <div class="container">
+        <div class="piece" style="background-color: rgba(255, 0, 0, 0.3);transform: rotateY(0deg) translateZ(110px);"></div>
+        <div class="piece" style="background-color: rgba(61, 205, 55, 0.3);transform: rotateY(90deg) translateZ(110px);"></div>
+        <div class="piece" style="background-color: rgba(194, 204, 45, 0.3);transform: rotateY(180deg) translateZ(110px);"></div>
+        <div class="piece" style="background-color: rgba(0, 163, 254, 0.3);transform: rotateY(270deg) translateZ(110px);"></div>
+        <div class="piece" style="background-color: rgba(0, 0, 255, 0.3);transform: rotateX(90deg) translateZ(110px);"></div>
+        <div class="piece" style="background-color: rgba(76, 130, 204, 0.3);transform: rotateX(-90deg) translateZ(110px);"></div>
+    </div>
+</div>
+
+<script>
+    var tranZ=100/Math.tan(45/180*Math.PI);
+    console.log(tranZ); // 100
+</script>
+</body>
+</html>
