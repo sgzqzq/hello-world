@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <style>
+        body{
+            background-color: #00001e;
+        }
+        div{
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="width: 320px; height: 350px;/*border: 1px solid #eee;*/" ></div>
+<div id="container2" style="width: 320px; height: 350px;/*border: 1px solid #eee;*/" ></div>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+<script type="text/javascript">
+    var myChart1 = echarts.init(document.getElementById('container'));
+    placeHolderStyle ={
+        normal: {
+            color: "rgba(255,255,255,0.15)", //底环颜色
+            label: {
+                show: false,
+                position: "center"
+            },
+            labelLine: {
+                show: false,
+                length: 20,
+                lineStyle:{
+                    color: 'transparent',
+                }
+            },
+            borderColor: "#dedede",
+            borderWidth: 0
+        },
+        emphasis: {
+            color: "rgba(255,255,255,0.25)",
+            borderColor: "#dedede",
+            borderWidth: 0
+        }
+    };
+    option = {
+        /*tooltip: {
+         trigger: 'item',
+         formatter: "{a} <br/>{b}: {c} ({d}%)"
+         },*/
+        backgroundColor: 'transparent',
+        //color: ['#0199f2', 'transparent'],//视觉引导线颜色
+        legend: [{
+            textStyle: {
+                color: 'rgba(255,255,255,0.75)'
+            },
+            orient: 'vertical',
+            //align: 'right',
+            icon: 'roundRect',
+            left: 'center',
+            bottom: 15,
+            data: ['已分配VCPU']
+        }],
+        series: [
+            {
+                name: '值',
+                type: 'pie',
+                clockWise: false, //顺时加载
+                hoverAnimation: true, //鼠标移入变大
+                center:['50%','45%'], //圆心
+                radius: ['43%', '65%'], //内半径、外半径
+                label: { //饼图图形上的文本标签，可用于说明图形的一些数据信息
+                    normal: {
+                        backgroundColor: 'rgba(144,145,251,0.15)',
+                        color: '#0199f2',
+                        fontSize: 14,
+                        fontWeight: 'normal',
+                        borderColor: 'rgba(144,145,251,0.25)',
+                        borderWidth: 1,
+                        borderRadius: 0,
+                        padding: [2,5,2,5],
+                        shadowBlur:3,
+                        // shadowOffsetX: 2,
+                        // shadowOffsetY: 2,
+                        shadowColor: '#0199f2',
+                        // padding: [0, 7],
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: '#a102fd' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: '#0197f2' // 100% 处的颜色
+                            }],
+                            globalCoord: false // 缺省为 false
+                        },
+                        /*label: {
+                         show: true,
+                         position: 'outside',
+                         color: '#0199f2',
+                         },*/
+                        labelLine: {
+                            show: true,
+                            length: 20,//视觉引导线长度
+                            smooth: 0.3,
+                        },
+                        borderWidth: 0,
+                    },
+                    emphasis:{
+
+                    }
+                },
+                data: [{
+                    value: 7,
+                    name: '70%',
+
+                }, {
+                    value: 3,
+                    name: '',
+                    itemStyle: placeHolderStyle
+                }]
+            },
+            {
+                name: 'inner border',
+                type: 'pie',
+                clockWise: false, //顺时加载
+                hoverAnimation: false, //鼠标移入变大
+                center:['50%','45%'], //圆心
+                radius: ['35%', '38%'], //内半径、外半径
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(98,197,247,0.5)',
+                        label: {
+                            show: false,
+                            position: 'outside',
+                            color: '#9091fb',
+                        },
+                        labelLine: {
+                            show: false,
+                            length: 20,//视觉引导线长度
+                            smooth: 0.3,
+                        },
+                        borderWidth: 0,
+                        shadowColor: 'rgba(98,197,247,0.5)',
+                        shadowBlur: 10
+                    }
+                },
+                data: [{
+                    value: 7,
+                    name: '70%',
+
+                }]
+            },
+            {
+                name: 'outter border',
+                type: 'pie',
+                clockWise: false, //顺时加载
+                hoverAnimation: false, //鼠标移入变大
+                center:['50%','45%'], //圆心
+                radius: ['73%', '74%'], //内半径、外半径
+                itemStyle: {
+                    normal: {
+                        color: '#39689b',
+                        label: {
+                            show: false,
+                            position: 'outside',
+                            color: '#9091fb',
+                        },
+                        labelLine: {
+                            show: false,
+                            length: 20,//视觉引导线长度
+                            smooth: 0.3,
+                        },
+                        borderWidth: 0,
+                        shadowColor: 'rgba(144, 145, 251, 0.75)',
+                        shadowBlur: 10
+                    }
+                },
+                data: [{
+                    value: 7,
+                    name: '70%',
+
+                }]
+            },
+            {
+                type: 'pie',
+                color: ['#1980e9'], //图例颜色
+                data: [{
+                    value: '',
+                    name: '已分配VCPU'
+                }]
+            },
+            {
+                name: '中心文字',
+                type: 'pie',
+                clockWise: true,
+                hoverAnimation: false,
+                radius: [100, 100],
+                center:['50%','45%'], //环心文字坐标
+                label: {
+                    normal: {
+                        position: 'center'
+                    }
+                },
+                data: [{
+                    value: 1,
+                    label: {
+                        normal: {
+                            formatter: 'CPU占用率',
+                            textStyle: {
+                                color: '#0197f2',
+                                fontSize: 14,
+                                height: 30, //文字高度
+                                rich:{}
+                            }
+                        }
+                    }
+                }, {
+                    tooltip: {
+                        show: false
+                    },
+                    label: {
+                        normal: {
+                            formatter: '\n15.59%',
+                            textStyle: {
+                                color: '#0197f2',
+                                fontSize: 22,
+                                fontWeight: 'bold'
+                            }
+                        }
+                    }
+                }]
+            }]
+    };
+    myChart1.setOption(option);
+
+    //右
+    var myChart2 = echarts.init(document.getElementById('container2'));
+    placeHolderStyle2 ={
+        normal: {
+            color: "rgba(255,255,255,0.15)", //底环颜色
+            label: {
+                show: false,
+                position: "center"
+            },
+            labelLine: {
+                show: false,
+                length: 20,
+                lineStyle:{
+                    color: 'transparent',
+                }
+            },
+            borderColor: "#dedede",
+            borderWidth: 0
+        },
+        emphasis: {
+            color: "rgba(255,255,255,0.25)",
+            borderColor: "#dedede",
+            borderWidth: 0
+        }
+    };
+    option2 = {
+        /*tooltip: {
+         trigger: 'item',
+         formatter: "{a} <br/>{b}: {c} ({d}%)"
+         },*/
+        backgroundColor: 'transparent',
+        //color: ['#0199f2', 'transparent'],//视觉引导线颜色
+        legend: [{
+            textStyle: {
+                color: 'rgba(255,255,255,0.75)'
+            },
+            orient: 'vertical',
+            //align: 'right',
+            icon: 'roundRect',
+            left: 'center',
+            bottom: 15,
+            data: ['已分配内存']
+        }],
+        series: [
+            {
+                name: '值',
+                type: 'pie',
+                clockWise: true, //顺时加载
+                hoverAnimation: true, //鼠标移入变大
+                center:['50%','45%'], //圆心
+                radius: ['43%', '65%'], //内半径、外半径
+                label: { //饼图图形上的文本标签，可用于说明图形的一些数据信息
+                    normal: {
+                        backgroundColor: 'rgba(144,145,251,0.15)',
+                        color: '#0199f2',
+                        fontSize: 14,
+                        fontWeight: 'normal',
+                        borderColor: 'rgba(144,145,251,0.25)',
+                        borderWidth: 1,
+                        borderRadius: 0,
+                        padding: [2,5,2,5],
+                        shadowBlur:3,
+                        // shadowOffsetX: 2,
+                        // shadowOffsetY: 2,
+                        shadowColor: '#0199f2',
+                        // padding: [0, 7],
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: '#a102fd' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: '#0197f2' // 100% 处的颜色
+                            }],
+                            globalCoord: false // 缺省为 false
+                        },
+                        /*label: {
+                         show: true,
+                         position: 'outside',
+                         color: '#0199f2',
+                         },*/
+                        labelLine: {
+                            show: true,
+                            length: 20,//视觉引导线长度
+                            smooth: 0.3,
+                        },
+                        borderWidth: 0,
+                    },
+                    emphasis:{
+
+                    }
+                },
+                data: [{
+                    value: 7,
+                    name: '70%',
+
+                }, {
+                    value: 3,
+                    name: '',
+                    itemStyle: placeHolderStyle2
+                }]
+            },
+            {
+                name: 'inner border',
+                type: 'pie',
+                clockWise: false, //顺时加载
+                hoverAnimation: false, //鼠标移入变大
+                center:['50%','45%'], //圆心
+                radius: ['35%', '38%'], //内半径、外半径
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(98,197,247,0.5)',
+                        label: {
+                            show: false,
+                            position: 'outside',
+                            color: '#9091fb',
+                        },
+                        labelLine: {
+                            show: false,
+                            length: 20,//视觉引导线长度
+                            smooth: 0.3,
+                        },
+                        borderWidth: 0,
+                        shadowColor: 'rgba(98,197,247,0.5)',
+                        shadowBlur: 10
+                    }
+                },
+                data: [{
+                    value: 7,
+                    name: '70%',
+
+                }]
+            },
+            {
+                name: 'outter border',
+                type: 'pie',
+                clockWise: false, //顺时加载
+                hoverAnimation: false, //鼠标移入变大
+                center:['50%','45%'], //圆心
+                radius: ['73%', '74%'], //内半径、外半径
+                itemStyle: {
+                    normal: {
+                        color: '#39689b',
+                        label: {
+                            show: false,
+                            position: 'outside',
+                            color: '#9091fb',
+                        },
+                        labelLine: {
+                            show: false,
+                            length: 20,//视觉引导线长度
+                            smooth: 0.3,
+                        },
+                        borderWidth: 0,
+                        shadowColor: 'rgba(144, 145, 251, 0.75)',
+                        shadowBlur: 10
+                    }
+                },
+                data: [{
+                    value: 7,
+                    name: '70%',
+
+                }]
+            },
+            {
+                type: 'pie',
+                color: ['#1980e9'], //图例颜色
+                data: [{
+                    value: '',
+                    name: '已分配内存'
+                }]
+            },
+            {
+                name: '中心文字',
+                type: 'pie',
+                clockWise: true,
+                hoverAnimation: false,
+                radius: [100, 100],
+                center:['50%','45%'], //环心文字坐标
+                label: {
+                    normal: {
+                        position: 'center'
+                    }
+                },
+                data: [{
+                    value: 1,
+                    label: {
+                        normal: {
+                            formatter: '内存占用率',
+                            textStyle: {
+                                color: '#0199f2',
+                                fontSize: 14,
+                                height: 30, //文字高度
+                                rich:{}
+                            }
+                        }
+                    }
+                }, {
+                    tooltip: {
+                        show: false
+                    },
+                    label: {
+                        normal: {
+                            formatter: '\n15.59%',
+                            textStyle: {
+                                color: '#0199f2',
+                                fontSize: 22,
+                                fontWeight: 'bold'
+                            }
+                        }
+                    }
+                }]
+            }]
+    };
+    myChart2.setOption(option2);
+</script>
+</body>
+</html>
