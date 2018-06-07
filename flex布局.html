@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>flex布局</title>
+    <style>
+        .main{
+            background-color: #eee;
+            display: inline-flex;
+            width: 35%; height: 100px;
+        }
+        .main > div{
+            width: 50px; height: 50px;
+            border: 1px solid blue;
+            box-sizing: border-box;
+            margin: auto;/* 为flex布局的子元素设置margin:auto属性，则子元素会相对于父元素水平、垂直分布对齐 */
+        }
+    </style>
+</head>
+<body>
+    <!--
+    Flex是Flexible Box的缩写，意为"弹性布局"
+
+    flex： 将对象作为弹性伸缩盒显示
+    inline-flex：将对象作为内联块级弹性伸缩盒显示，会根据子元素所有的div大小自适应宽度和高度
+
+    兼容性：国内主流最新版浏览器都能兼容
+    -->
+    <div class="main">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+    <div class="main">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+</body>
+</html>
