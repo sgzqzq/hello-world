@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://www.andypatrickdesign.com/ -->
+<html lang="en" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>气泡背景动效</title>
+    <style>
+        *, *::after, *::before {
+            box-sizing: border-box;
+        }
+        ::selection {
+            background: #098ef2;
+            color: #fff;/* WebKit/Blink Browsers */
+        }
+        ::-moz-selection {
+            background: #098ef2;
+            color: #fff;/* Gecko Browsers */
+        }
+        body {
+            background:#273040;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .fluid {
+            width: 250px; height: 250px;
+            background-color: #00e5ea;
+            margin: 145px auto;
+            border-radius: 50%;
+            animation: rotate 30s infinite;
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(359deg);
+            }
+        }
+
+        .fluiddark {
+            position: absolute; top: -5%; left: 0; right: 0; margin: auto; z-index: -200;
+            width: 650px; height: 650px;
+            border: #273040 solid 2px;
+            border-radius: 50%;
+            box-shadow: inset 0px 0px 40px rgba(0, 0, 0, .2), 0 0 90px rgba(0, 0, 0, .8);
+        }
+    </style>
+</head>
+<body>
+
+<div class="fluid"></div>
+<div class="fluiddark"></div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var randomness = 90;
+    var threshold = 285;
+    var anim_duration = 900; //1000 = 1s
+
+    var randomness3 = 320;
+    var threshold3 = 700;
+    var anim_duration3 = 900; //1000 = 1s
+
+    /*
+    function rgb2hex(rgb) { //将rgba格式转换成16进制格式
+        // match() 在字符串内检索指定值，返回值为包含匹配结果的数组
+        // parseInt() 将字符串转化为整数，或者用于数字各种进制的互相转换
+        // slice() 用于截取字符串
+        // toString(16) 将数字转化为16进制值的字符串
+
+        rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+
+        return (rgb && rgb.length === 4) ? "#" +
+        ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
+    }
+    */
+
+    animate = function () {
+        //Math.round() 对数字进行四舍五入
+        var randomNumRed = Math.round(Math.random() * 25) + 25; //25~50
+        var randomNumGreen = Math.round(Math.random() * 25) + 125; //125~150
+        var randomNumBlue = Math.round(Math.random() * 25) + 25; //25~50
+        var randomNumOrange = Math.round(Math.random() * 25) + 500; //500~525
+        var randomNumBlack = Math.round(Math.random() * 25) + 25;//25~50
+        var randomNumGrey = Math.round(Math.random() * 25) + 800; //800~825
+
+        $('.fluid').animate({ //String() 把对象的值转化为字符串
+            borderTopLeftRadius: String(Math.round((Math.random() * randomness + threshold)) + 'px'), //285~375
+            borderTopRightRadius: String(Math.round((Math.random() * randomness + threshold)) + 'px'),
+            borderBottomLeftRadius: String(Math.round((Math.random() * randomness + threshold)) + 'px'),
+            borderBottomRightRadius: String(Math.round((Math.random() * randomness + threshold)) + 'px')
+            //backgroundColor: rgb2hex('rgba(' + randomNumRed + ',' + randomNumGreen + ', 215)')
+            // jquery animate 无法设置背景色动画
+        }, anim_duration, animate);
+
+        $('.fluiddark').animate({
+            borderTopLeftRadius: String(Math.round((Math.random() * randomness3 + threshold3)) + 'px'),
+            borderTopRightRadius: String(Math.round((Math.random() * randomness3 + threshold3)) + 'px'),
+            borderBottomLeftRadius: String(Math.round((Math.random() * randomness3 + threshold3)) + 'px'),
+            borderBottomRightRadius: String(Math.round((Math.random() * randomness3 + threshold3)) + 'px')
+            //backgroundColor: rgb2hex('rgba(' + randomNumBlack + ',' + randomNumGrey + ', 215)')
+        }, anim_duration3, animate);
+    };
+    animate();
+</script>
+
+</body>
+</html>
