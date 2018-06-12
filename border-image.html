@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>border-image</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .demo1 {
+            width: 500px;
+            height: 500px;
+            border: 50px solid;
+
+            /*border-image按照九宫格划分*/
+
+            /*border-image: -webkit-linear-gradient( red, blue) 30 30;
+            border-image: -moz-linear-gradient( red, blue) 30 30;*/
+            border-image-source: url(http://www.wqcms.com/upload/2012-06/1206120914243015.png); /*此处可换成渐变*/
+
+            border-image-slice:  34% 34% 34% 34%; /*上、右、下、左*/
+            /*border-image-slice: 30 30 30 30;*/
+            /*border-image的值既可以是百分比，也可以是数值（不加px）*/
+
+            border-image-repeat: round stretch;/*上下、左右*/
+            /*border-image-repeat的值有round、stretch、repeat*/
+        }
+    </style>
+</head>
+<body>
+<div class="demo1"></div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
