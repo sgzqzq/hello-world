@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>边框渐变</title>
+    <style>
+        body{
+            background-color: #090e2c;
+        }
+        div{
+            float: left;
+            margin: 20px;
+        }
+
+        /* 方法一：使用border-image */
+        .demo1{
+            width: 300px;
+            height: 200px;
+            border: 1px solid;
+            border-image: radial-gradient(#061e3a 50%,#0d2665,#2c93b8,#1a96ff) 2 round;
+        }
+
+        /* 方法二：使用backgroud多背景添加 */
+        .demo2{
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(to right,red,blue) no-repeat top center,
+                        linear-gradient(to bottom,blue,red) no-repeat right center,
+                        linear-gradient(to left,red,blue) no-repeat bottom center,
+                        linear-gradient(to top,blue,red) no-repeat left center;
+            background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+        }
+        .demo3{
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(to right,rgba(0,0,0,0.2),rgba(0,0,0,0.2)) center center no-repeat,
+            linear-gradient(to right,#1a96ff,#2c93b8,#0d2665,#1a96ff,#2c93b8,#218cb4,#0d2665) no-repeat top center,
+            linear-gradient(to bottom,#0d2665,#1e65d1,#061e3a,#2c93b8) no-repeat right center,
+            linear-gradient(to left,#2c93b8,#1a96ff,#0d2665,#2c93b8,#0d2665) no-repeat bottom center,
+            linear-gradient(to top,#0d2665,#2c93b8,#0d2665,#1a96ff) no-repeat left center,
+            url(../image/panel_sbg1.png) 6px 6px no-repeat,
+            url(../image/panel_sbg2.png) top 6px  right 6px no-repeat,
+            url(../image/panel_sbg3.png) bottom 6px  right 6px no-repeat,
+            url(../image/panel_sbg4.png) bottom 6px  left 6px no-repeat; /* 背景位置可以 关键字 和 数值 结合使用 */
+            background-size: 100% 100%, 100% 1px, 1px 100%, 100% 1px, 1px 100%,auto auto,auto auto,auto auto,auto auto;
+        }
+    </style>
+</head>
+<body>
+<div class="demo1"></div>
+<div class="demo2"></div>
+<div class="demo3"></div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
