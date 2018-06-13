@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>mask+animation背景动画</title>
+    <style>
+        @keyframes mask{
+            0% {-webkit-mask-position:0px 0px;}
+            25% {-webkit-mask-position:619px 0px;}
+            50% {-webkit-mask-position:0px 0px;}
+            75% {-webkit-mask-position:308px 0px;-webkit-mask-size:100%;}
+            100% {-webkit-mask-size:1000%;}
+        }
+
+        .mask{
+            width:700px;
+            height:392px;
+            background:black url("http://img.blog.csdn.net/20170701233330967");
+            -webkit-mask-image:url("http://img.blog.csdn.net/20170701233352262");
+            animation:mask 5s linear infinite forwards;
+        }
+    </style>
+</head>
+<body>
+<div class="mask"> </div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
