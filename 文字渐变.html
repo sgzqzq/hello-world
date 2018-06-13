@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>文字渐变</title>
+    <style>
+        /*方法一：background + background-clip */
+        .demo1{
+            font-size: 30px; font-weight: bold;
+            background: linear-gradient(to right, red,blue);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /*方法二：::before + -webkit-mask */
+        .demo2{
+            font-size: 30px; font-weight: bold;
+            color:red;
+            position: relative;
+        }
+        .demo2::before{
+            content: attr(text);
+            color: blue;
+            position: absolute; width: 100%;
+            -webkit-mask: linear-gradient(to left,#000,transparent); /*将蓝色局部遮盖*/
+        }
+    </style>
+</head>
+<body>
+<span class="demo1">渐变文字</span>
+<span class="demo2" text="渐变文字">渐变文字</span>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
