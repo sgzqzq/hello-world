@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>try-catch</title>
+    <style>
+        body{
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <p>请输入6-16之间的数字</p>
+    <input type="text" id="ipt"/>
+    <p>点击测试数字：<button onclick="test()">测试</button></p>
+    <p id="mess"></p>
+
+<script>
+    function test(){
+        try{  //try 测试代码块错误
+            var val=document.querySelector('#ipt').value;
+            if(val=="") throw '值为空'; // throw 创建并抛出错误
+            if(isNaN(val)) throw '不是数字';
+            if(val<6) throw '太小';
+            if(val>16) throw '太大';
+        }catch(err){ // catch 语句处理错误，参数必须
+            var mess=document.querySelector('#mess');
+            mess.innerHTML='错误信息：'+err; // 抓住上面throw抛出的错误
+        }
+    }
+</script>
+</body>
+</html>
