@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>eval()</title>
+    <style>
+        body{
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<script>
+    /*
+    * eval() 可计算某个字符串，并执行其中的JS代码
+    * */
+
+    var j="{name:'Ann',age:12,hobby:['football','basketball','tennis']}";
+    try{
+        //console.log(eval("({name:'Ann',age:12,hobby:['football','basketball','tennis']})"));
+        console.log(eval('('+j+')')); //eval() 在执行复杂的表达式字符串时需要加上括号
+        //eval() 可将json字符串转化为json对象
+    }catch(err){
+        alert(err)
+    }
+</script>
+</body>
+</html>
