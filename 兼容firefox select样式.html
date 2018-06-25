@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>兼容firefox select样式</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{
+            background-color: #06122b;
+            font-size: 14px;
+        }
+        .form-control{
+            margin: 20px; width: 250px;
+            border: 1px solid #49aeff;
+            background-color: rgba(37, 83, 176, 0.1);
+            box-shadow: 0 0 20px rgba(37, 83, 176, 0.75) inset;
+            color: #49aeff;
+        }
+        .form-control:focus {
+            border-color: #49aeff;
+            box-shadow: inset 0 1px 1px rgba(37, 83, 176, 0.75), 0 0 8px rgba(37, 83, 176, 0.75);
+            background-color: rgba(37, 83, 176, 0.1);
+            color: #49aeff;
+        }
+        @-moz-document url-prefix() { /*css hack 仅被火狐识别的样式*/
+            select.form-control {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none; /*去除系统默认appearance的样式*/
+                background-image: url("http://localhost:8082/citycenter/image/select_tri.png");
+                background-repeat: no-repeat;
+                background-position: calc(100% - 7px) 50%;
+                background-size: 6px 6px;
+            }
+        }
+        option{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+
+            background-color: #081839;
+        }
+    </style>
+</head>
+<body>
+
+<select class="form-control">
+    <option>请随意选择</option>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+</select>
+
+<script>
+
+</script>
+</body>
+</html>
