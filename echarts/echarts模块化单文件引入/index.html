@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>echarts模块化单文件引入</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="box" style="height: 400px;"></div>
+
+<script src="./js/echarts/echarts.js"></script><!-- 引入echarts主文件，获得AMD环境 -->
+<script>
+    require.config({ // 为模块加载器配置echarts路径
+        paths:{
+            echarts:'./js/echarts' // 从当前页面链接到echarts.js所在目录，链接到其他目录不好使
+        }
+    });
+
+    require([ // 模块加载器
+        'echarts/echarts',
+        'echarts/chart/bar' // 动态加载所需模块
+    ],function(ec){ // 回调函数中的参数是按顺序排列的，分别代表加载进来的模块，可以在回调函数中使用
+        var echarts=ec.init(document.querySelector('#box'));
+        echarts.setOption({
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [120, 200, 150, 80, 70, 110, 130],
+                type: 'bar'
+            }]
+        });
+    });
+
+    /* 详情参见：http://echarts.baidu.com/echarts2/doc/doc.html */
+</script>
+</body>
+</html>
