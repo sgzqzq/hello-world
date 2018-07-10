@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<script>
+    function queryJieKouDate(){
+
+        var myChart = echarts.init(document.getElementById('jiekoudiaoyongdate'));
+        var data = genBarData();
+        var option = {
+
+            tooltip : {
+                trigger: 'axis'
+            },
+
+
+            calculable : true,
+            grid:{ //图表大小
+                containLabel: true, //grid 区域是否包含坐标轴的刻度标签
+                x:'30',
+                y:'20',
+                x2:'30',
+                y2:'60',
+                borderWidth: 0, //网格的边框线宽
+                //borderColor: 'rgba(255,255,255,0.35)', //网格的边框颜色
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(255,255,255,0.35)', //y轴网格线颜色
+                        }
+                    },
+                    data : data.legendData,
+                    axisLabel: {
+                        interval:0,
+                        rotate:40,
+                        textStyle: {
+                            color: 'rgba(255,255,255,0.7)',//坐标值得具体的颜色
+
+                        }
+                    }
+
+                }
+
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(255,255,255,0.35)', //y轴网格线颜色
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: 'rgba(255,255,255,0.7)'
+                        }
+                    }
+
+                },
+
+            ],
+            series : [
+
+
+                {
+                    name:'调用接口量',
+                    type:'bar',
+                    data:data.applyYData,
+                    itemStyle: {
+                        //通常情况下：
+                        normal:{
+                            //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                            color: function (params){
+                                var colorList = ['rgb(42,170,227)'];
+                                return colorList;
+                            }
+                        }}
+                }
+            ]
+        };
+        myChart.setOption(option);
+    }
+</script>
+</body>
+</html>

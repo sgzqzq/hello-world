@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="interfPieDiv" class="index-echartbox clearfix" ></div>
+<script>
+    var labelTop = {
+        normal: {
+            label: {
+                show: true,
+                position: 'center',
+                formatter: '{b}',
+                textStyle: {
+                    baseline: 'bottom',
+                    fontSize: 12,
+                    color: 'rgba(255,255,255,0.7)',
+                }
+            },
+            labelLine: {
+                show: false
+            }
+        }
+    };
+    var labelFromatter = {
+        normal: {
+            label: {
+                formatter: function (params) {
+                    return (100 - params.value).toFixed(2) + '%'
+                },
+                textStyle: {
+                    baseline: 'top', // 垂直对齐方式
+                    fontSize: 22,
+                }
+            }
+        },
+    }
+    var labelBottom = {
+        normal: {
+            color: 'rgba(255,255,255,0.2)',
+            label: {
+                show: true,
+                position: 'center'
+            },
+            labelLine: {
+                show: false
+            }
+        },
+        emphasis: {
+            color: 'rgba(0,0,0,0)'
+        }
+    };
+    var radius = [50, 70];
+    var colors=[['rgb(131,175,155)'],['rgb(252,157,154)'],['rgb(249,205,173)'],['rgb(254,67,101)']];
+    function queryInterf(projectId){
+        $.ajax({
+            async: false,
+            type:"POST",
+            url :"${ctx}/main/queryInterf",
+            data : {"projectId" : projectId},
+            dataType: "json",
+            success : function(data) {
+                $("#interfPieDiv").html("");
+                for(var i=0;i<data.length;i++){
+                    var color;
+                    var series = new Array(0);
+                    var companydata = data[i];
+                    var obj = new Object();
+                    obj.type = "pie";
+                    obj.center = ['50%', '50%'];
+                    if(i%3==0){
+                        color=colors[0];
+                    }else if(i%3==1){
+                        color=colors[1];
+                    }else if(i%3==2){
+                        color=colors[2];
+                    }
+                    obj.hoverAnimation=false;
+                    obj.radius = radius;
+                    obj.itemStyle = labelFromatter;
+                    for(var j=0;j<companydata.length;j++){
+                        if(companydata[j].name=="调用失败"){
+                            companydata[j].itemStyle=labelBottom;
+                        }else{
+                            companydata[j].itemStyle=labelTop;
+                        }
+                    }
+                    obj.data = companydata;
+                    series[0] = obj;
+                    createInterfPie(series,i,color);
+                }
+            },
+            error:function() {
+            }
+        });
+    }
+
+    function createInterfPie(series,i,color) {
+        var str = '<div class="interfPie interpie-box" id="pie'+i+'"></div>';
+        $("#interfPieDiv").append(str);
+        // 接口调用成功率
+        var option4 = {
+            color:color, // 调色盘
+            /*legend: {
+             x: 'center',
+             y: 'bottom',
+             data:' ',
+             textStyle: {
+             color: "#fff"
+             },
+             },*/
+            tooltip : {
+                trigger: 'item',
+                formatter: function(params){
+                    return "<div class='ectip-name'>接口调用成功率</div><div>"+params.name+"</div><div class='ectip-value'>"+(params.value).toFixed(2)+"%</div>";
+                },
+                //backgroundColor: 'rgba(126,206,244,0.2)',
+            },
+            textStyle: { // 全局字体样式
+                color: "#fff"
+            },
+            /*title: {
+             text: '',
+             x: 'left',
+             textStyle: {
+             fontSize: 12,
+             color: "#fff"
+             },
+             padding: [
+             20,  // 上
+             10, // 右
+             5,  // 下
+             10, // 左
+             ]
+             },*/
+            series:series
+        };
+        var box4 = document.getElementById('pie'+i);
+        var myChart4 = echarts.init(box4);
+        myChart4.setOption(option4);
+    }
+</script>
+</body>
+</html>

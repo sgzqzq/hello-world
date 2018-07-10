@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<script>
+    function queryBasicData(projectid) {
+//        var projectid = $("#indexNav").val();
+        $.post("${ctx}/main/queryBasicData",{projectId:projectid},function (d) {
+            var xAxis = d.xAxis.split(",");
+            var series = d.series.split(",");
+            //指定图标的配置和数据
+            var option = {
+                /*title: {
+                 text: '接收基础数据',
+                 subtext: '纯属虚构'
+                 textStyle: {
+                 fontWeight: 'normal',              //标题颜色
+                 color: 'white',
+                 fontSize: '14'
+                 }
+                 },*/
+                color: ['#3693ff'],
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    data: ['接收基础数据'],
+                    textStyle: {
+                        fontWeight: 'normal',              //标题颜色
+                        color: 'rgba(255,255,255,0.7)'
+                    }
+                },
+                grid:{ //图表大小
+                    x:'50',
+                    y:'55',
+                    x2:'70',
+                    y2:'30',
+                    borderWidth: 0, //网格的边框线宽
+                    //borderColor: 'rgba(255,255,255,0.35)', //网格的边框颜色
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: xAxis,
+                        splitLine:{show: false},//去除网格线
+                        axisLine:{show:false}, //去除x轴线
+                        axisTick:{show:false},
+                        /*axisLine:{
+                         lineStyle:{
+                         color: 'rgba(255,255,255,0.35)'
+                         }
+                         },*/
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        splitLine: {
+                            lineStyle: {
+                                color: 'rgba(255,255,255,0.35)', //y轴网格线颜色
+                            }
+                        },
+                        //axisLine:{show:false},//去除y轴线
+                        axisLine:{
+                            lineStyle:{
+                                color: 'rgba(255,255,255,0.35)',
+                                width: 1,
+                            }
+                        }, //y轴线样式
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '接收基础数据',
+                        type: 'bar',
+                        //barWidth: 50, //柱条的宽度
+                        barMaxWidth: 60, //柱条的最大宽度
+                        itemStyle: {
+                            normal: {
+                                fontSize: '14',
+                                barBorderRadius: 4
+                            }
+                        },
+                        data: series,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            itemStyle: {
+                                normal: {
+                                    lineStyle: {
+                                        type: 'dotted', //标线类型
+                                        //color: 'red ', //标线颜色
+                                        width: 2, //标线宽度
+                                    },
+                                    label: { //标线的文本
+                                        formatter: '',
+                                        textStyle: {
+                                            fontSize: 14,
+                                            fontWeight: "bolder",
+                                        },
+                                    }
+                                },
+                            },
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                    }
+                ]
+            };
+            //初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chartmain'));
+            //使用制定的配置项和数据显示图表
+            myChart.setOption(option);
+        })
+    }
+</script>
+</body>
+</html>

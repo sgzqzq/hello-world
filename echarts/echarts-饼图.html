@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<script>
+    function queryWarningData(projectid) {
+        $.post("${ctx}/main/queryWarningData",{projectId:projectid},function (d) {
+            var data = eval('('+ d +')');
+            //指定图标的配置和数据
+            var option = {
+                color: ['#ecc152','#3693ff','#41b56d','#ec5d89'],
+                /* 鼠标放上 */
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                /* 左边菜单 */
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    textStyle:{
+                        color : 'rgba(255, 255, 255, 0.7)'
+                    },
+                    //data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎1','搜索引擎2','搜索引擎']
+                    data:data.legend
+                },
+                //饼形图 外圈
+                calculable : false,
+                series : [
+                    {
+                        name:'告警数据',
+                        type:'pie',
+                        radius : ['35%','70%'], // 饼形图大小
+                        center: ['50%', '50%'],
+                        //roseType: 'radius', //是否展示成南丁格尔图
+                        data:data.series/*[
+                     {value:194, name:'热力集团'},
+                     {value:1, name:'排水集团'}
+                     ]*/
+                    }
+                ]
+            };
+            //初始化echarts实例
+            var myChart = echarts.init(document.getElementById('warning'));
+            //使用制定的配置项和数据显示图表
+            myChart.setOption(option);
+        })
+    }
+</script>
+</body>
+</html>
