@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Json对象与Json字符串转换</title>
+    <style>
+        body{
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var obj={name:'Ann',age: 12};
+    var str=JSON.stringify(obj); // JSON.stringify() 将Json对象转换成字符串
+    console.log(str);
+    console.log(typeof(str));
+
+
+    var str2='{"name":"Ann","age": 12}';
+    var obj2=JSON.parse(str2); // JSON.parse() 可将字符串转换为Json对象(json字符串中的属性一律用双引号括起来才能好使，这一点没有eval()灵活)
+    console.log(obj2);
+
+
+    var str3='{"name":"Ann","age": 12}'; // 此为标准格式json字符串
+    var obj3=$.parseJSON(str3); // jquery中也有将字符串转换为对象的方法，但是json字符串必须是标准格式的
+    console.log(obj3);
+
+</script>
+</body>
+</html>
