@@ -1,0 +1,11 @@
+.box{
+    position: relative;
+    width: 200px; height: 200px;
+    background-color: #80e08f;
+}
+.box::before{
+    content: "";
+    position: absolute; left: 0; right: 0; top: 0;
+    height: 50%;
+    background-color: #8fd1e6;
+}

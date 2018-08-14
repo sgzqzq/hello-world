@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>addRule()和insertRule()</title>
+    <link rel="stylesheet" href="test3.css">
+</head>
+<body>
+<div class="box">
+
+</div>
+
+<script>
+    var style=document.createElement('style');
+    document.head.appendChild(style);
+    sheet=style.sheet; //获取样式表
+    //console.log(sheet);
+
+    /* 向样式表中添加规则 */
+    //方法一:
+    //sheet.addRule('.box:before','background-color: red');
+    //sheet.addRule('.box:before','background-color: red;height: 80%;');
+
+    //方法二:
+    //sheet.insertRule('.box:before{background-color: blue;height: 80%;}',0);
+    sheet.insertRule('.box:before{background-color: blue;height: 80%;}');
+</script>
+</body>
+</html>
