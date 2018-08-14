@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>document.styleSheets[0]</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap-grid.css"/>
+    <style>
+        .box{
+            position: relative;
+            width: 200px; height: 200px;
+            background-color: #80e08f;
+        }
+        .box::before{
+            content: "";
+            position: absolute; left: 0; right: 0; top: 0;
+            height: 50%;
+            background-color: #8fd1e6;
+        }
+    </style>
+    <style>
+
+    </style>
+
+</head>
+<body>
+<div class="box">
+
+</div>
+
+<script>
+    document.styleSheets[1].addRule('.box:before','background-color: red'); // 对link样式表使用addRule()函数无效
+
+    //document.styleSheets获取样式列表(style及link皆可获取)
+    //console.log(document.styleSheets);
+    //console.log(document.styleSheets[0]);
+
+</script>
+</body>
+</html>
