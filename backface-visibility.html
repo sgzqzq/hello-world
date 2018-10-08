@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>backface-visibility</title>
+    <style>
+        .wrap{
+            background-color: #eee;
+        }
+        .box{
+            width: 200px;
+            height: 150px;
+            background-color: #4cb8e4;
+            text-align: center;
+            line-height: 150px;
+            margin-left: auto; margin-right: auto;
+            font-size: 20px; color: #fff;
+
+            transition: all 1s linear;
+
+            /*transform: translate3d(0,0,0);*/ /* 沿x轴、y轴、z轴平移 */
+
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            /* 定义当元素不面向屏幕时是否可见，如果在旋转元素时不希望看到其背面，该属性很有用 */
+            /* 默认值 visible 背面是可见的 */
+        }
+        .wrap:hover .box{
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="box">framework7</div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
