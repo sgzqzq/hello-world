@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>slice()方法</title>
+    <style>
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <li v-for="item in items" v-bind:key="item.id">{{item.message}}</li>
+    </ul>
+</div>
+
+<!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            items: [
+                {id: 3, message: 'apple'},
+                {id: 2, message: 'peach'},
+                {id: 1, message: 'banana'},
+            ]
+        }
+    });
+    //vm.items.push({id: 4, message: 'orange'});
+    vm.items = vm.items.slice(-1,-2);
+
+    /*
+    * slice() 从已有数组中截取一个子数组
+    * 返回值：返回一个新的数组
+    * 说明：该方法并不会改变原有数组，而是返回一个子数组
+    * 语法：slice(start,end)
+    * 无论正负，start必须小于end
+    * */
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>addEventListener()方法</title>
+    <style>
+        div{
+            background-color: #eeeeff;
+        }
+        p{
+            background-color: rgba(255, 223, 70, 0.2);
+            width: 200px;
+            height: 50px;
+        }
+        a{
+            background-color: rgba(12, 117, 212, 0.23);
+        }
+    </style>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+</head>
+<body>
+
+<div>
+    <p>
+        <a href="http://baidu.com">click me</a>
+    </p>
+</div>
+
+
+<!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
+<script>
+    function pAlert(){
+        alert('点击了p');
+    }
+    function aAlert (event){
+        alert('点击了a');
+        event.preventDefault();
+    }
+    function divAlert(){
+        alert('点击了div');
+    }
+
+
+    document.querySelector('a').addEventListener('click', aAlert, { passive: true });
+    document.querySelector('p').addEventListener('click', pAlert, {
+        capture:true, // 规定是否是捕获型
+        once: true, // 是否设置单次监听
+        passive: false // 是否让阻止默认行为preventDefalut()失效
+    });
+    document.querySelector('div').addEventListener('click', divAlert, false);
+    /*
+    * el.addEventListener(type, listener, useCapture或{})
+    * el：事件对象
+    * click：事件类型
+    * listener：事件处理函数
+    * useCapture：布尔值，规定是否为捕获型，默认false（冒泡型）
+    * {}：第三个参数可为{}对象
+    *
+    * 浏览器默认是先冒泡后捕获，useCapture为true时则先捕获后冒泡
+    * */
+
+
+    document.querySelector('p').removeEventListener('click',pAlert,true); // 如果addEventListener()添加了capture: true则要这么写（加上true）
+    //document.querySelector('p').removeEventListener('click',pAlert,{capture: true});
+
+    document.querySelector('a').removeEventListener('click',aAlert);
+    document.querySelector('div').removeEventListener('click',divAlert);
+    /*
+    * el.removeEventListener() 移除元素事件
+    * 注意：如果要移除事件，addEventListener()执行的函数必须是外部函数
+    * */
+</script>
+</body>
+</html>

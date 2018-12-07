@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>js let语句</title>
+    <style>
+
+    </style>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+</head>
+<body>
+
+<!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
+<script>
+    /*
+    let 关键字是用来定义变量的，和 var 有相同之处也有不同之处
+    let 英语翻译为“假设”
+    let 可以在声明变量时为变量赋值，也可以在稍后的脚本中为变量赋值
+    */
+
+
+    /* var 与 let 声明后未赋值，表现相同 */
+    (function(){
+        var a;
+        let b;
+        console.log(a); // 输出 undefined
+        console.log(b); // 输出 undefined
+    })();
+    /* 如果未在let语句中初始化变量，则自动为其分配undefined 值 */
+
+
+    /* var 与 let 变量声明置后，表现不同 */
+    (function(){
+        console.log(vv); // 输出 undefined
+        console.log(ll); // 直接报错：ReferenceError: letTest is not defined
+
+        var vv = 'test var';
+        let ll = 'test let';
+    })();
+    /* 在声明之前使用let语句声明的变量会报错 */
+
+
+    /* var 与 let 重复声明同一个变量时，表现不同 */
+    (function(){
+        var vv = 'test var1';
+        let ll = 'test let1';
+
+        var vv = 'test var2';
+        let ll = 'test let2'; //直接报错：SyntaxError: Identifier 'letTest' has already been declared
+
+        console.log(vv);
+        console.log(ll);
+    })();
+
+
+    /* var 与 let 变量作用范围表现不同 */
+    (function(){
+        var vv = 'test var';
+        let ll = 'test let';
+
+        {
+            var vv = 'test var changed';
+            let ll = 'test let changed';
+        }
+
+        console.log(vv);
+        console.log(ll);
+    })();
+    /** 使用let语句声明一个变量，该变量的范围仅限于声明它的代码块中 **/
+
+</script>
+</body>
+</html>
