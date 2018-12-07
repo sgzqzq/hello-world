@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>不固定宽度元素居中对齐CSS方法二</title>
+    <style>
+        ul, li{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .wrap{
+            float: left;
+            position: relative;
+            left: 50%;
+            margin-top: 50px;
+        }
+        .wrap ul{
+            float: left;
+            position: relative;
+            left: -50%;
+        }
+        .wrap ul li{
+            float: left;
+            margin: 1px;
+        }
+        .wrap ul li a{
+            padding: 6px 12px;
+            background-color: #00a0e9;
+            color: #fff;
+            border-radius: 2px;
+            float: left;
+        }
+    </style>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+</head>
+<body>
+
+<div class="wrap">
+    <ul>
+        <li><a>上一页</a></li>
+        <li><a>1</a></li>
+        <li><a>2</a></li>
+        <li><a>3</a></li>
+        <li><a>4</a></li>
+        <li><a>5</a></li>
+        <li><a>6</a></li>
+        <li><a>7</a></li>
+        <li><a>8</a></li>
+        <li><a>9</a></li>
+        <li><a>下一页</a></li>
+    </ul>
+</div>
+<!--
+原理：父元素和子元素同时左浮动，父元素相对于左面移动50%，子元素相对于左面移动-50%
+
+注意：.wrap元素外面还可以多套一层元素用来居中，更合理，也可以避免一些不必要的BUG
+-->
+
+<!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>不固定宽度元素居中对齐CSS方法一</title>
+    <style>
+        ul,li{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        ul{
+            float: left;
+            position: relative;
+            left: 50%;
+        }
+        li{
+            float: left;
+            position: relative;
+            right: 50%;
+            margin: 0 15px;
+        }
+    </style>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+</head>
+<body>
+<ul>
+    <li>hello world!1</li>
+    <li>hello world!hello world!2</li>
+    <li>hello world!hello world!hello world!3</li>
+</ul>
+<!--
+原理：父元素和子元素同时左浮动，且父元素相对左移动50%，子元素相对右移动50%
+
+注意：父元素不浮动，子元素浮动，则子元素脱离标准流，父元素高度为0
+      父元素浮动，子元素浮动，则父子元素同时脱离标准流，父元素的宽高会被子元素撑起来
+
+适用范围：适用于浮动的子元素不换行的情况
+-->
+
+<!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
+<script>
+
+</script>
+</body>
+</html>
