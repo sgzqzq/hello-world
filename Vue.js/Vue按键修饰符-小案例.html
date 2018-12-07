@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Vue按键修饰符-小案例</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: #00B83F;
+            position: fixed; top: 10px; left: 10px;
+        }
+        .ipt{
+            opacity: 0;
+            position: fixed; top: 0; left: 0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="box" ></div>
+    <input class="ipt" type="text"
+           v-on:keydown.down="toDown"
+           v-on:keydown.up="toUp"
+           v-on:keydown.left="toLeft"
+           v-on:keydown.right="toRight"
+           autofocus/>
+</div>
+
+<!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            speed: 5
+        },
+        methods: {
+            toDown: function (){
+                var box = document.querySelector('.box');
+                var oldTop = parseInt( window.getComputedStyle(box,null).top );
+                var newTop = oldTop + this.speed;
+                box.style.top = newTop + 'px';
+            },
+            toUp: function (){
+                var box = document.querySelector('.box');
+                var oldTop = parseInt( window.getComputedStyle(box,null).top );
+                var newTop = oldTop - this.speed;
+                box.style.top = newTop + 'px';
+            },
+            toLeft: function (){
+                var box = document.querySelector('.box');
+                var oldLeft = parseInt( window.getComputedStyle(box,null).left );
+                var newLeft = oldLeft - this.speed;
+                box.style.left = newLeft + 'px';
+            },
+            toRight: function (){
+                var box = document.querySelector('.box');
+                var oldLeft = parseInt( window.getComputedStyle(box,null).left );
+                var newLeft = oldLeft + this.speed;
+                box.style.left = newLeft + 'px';
+            }
+        }
+    });
+</script>
+</body>
+</html>
