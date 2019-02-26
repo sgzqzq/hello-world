@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <title>左右自适应列表排版</title>
+    <style>
+        *{
+            margin: 0; padding: 0;
+        }
+        li{
+            list-style-type: none;
+        }
+        body{
+            font-size: 14px;
+        }
+
+        .list-box{
+            width: 360px;
+        }
+        .list-box li{
+            margin-bottom: 5px;
+            padding: 10px 15px;
+            background-color: #eee;
+            display: box; display: -webkit-box;
+            box-orient: horizontal; -webkit-box-orient: horizontal;
+            box-pack: justify; -webkit-box-pack: justify;
+        }
+        .list-box .title{
+            padding-right: 10px;
+            /*box-flex: 0; -webkit-box-flex: 0;*/
+        }
+        .list-box .detail{
+            color: #5299d7;
+            box-flex: 1; -webkit-box-flex: 1;
+        }
+        .list-box .detail .txt{
+            float: right;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+<ul class="list-box">
+    <li>
+        <div class="title">序号: </div>
+        <div class="detail"><div class="txt">003</div></div>
+    </li>
+    <li>
+        <div class="title">DNA样品保存位置: </div>
+        <div class="detail"><div class="txt">2号楼418室条形码专用冰箱1层3号2号楼418室条形码专用冰箱1层3号</div></div>
+    </li>
+    <li>
+        <div class="title">鳍条样品保存位置:   </div>
+        <div class="detail"><div class="txt">2号楼418室条形码专用冷藏柜</div></div>
+    </li>
+</ul>
+
+</body>
+</html>

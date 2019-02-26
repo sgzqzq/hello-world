@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>渐变动画阴影</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .blackloader {
+            position: relative;
+            margin: 50px auto;
+            height: 40px; line-height: 40px; width: 200px;
+            padding: 0 20px;
+            font-size: 0.8em;
+            background-color: #fff; color: #4D6997;
+        }
+        .blackloader:after {
+            position: absolute; content: "";
+            top: 15px; left: 0; right: 0; z-index: -1;
+            height: 100%; width: 100%;
+            margin: 0 auto;
+
+            -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+
+            -webkit-filter: blur(15px);
+            filter: blur(15px); /*模糊滤镜，ie不支持*/
+
+            background: linear-gradient(to left, #6501DE, #FF5770, #6501DE);
+            /*渐变背景在background-size: 200%;的情况下会转圈显示，而图片背景则不会*/
+            background-size: 200% 200%;
+            -webkit-animation: animateGlow 1s linear infinite;
+            animation: animateGlow 1s linear infinite;
+        }
+
+        @-webkit-keyframes animateGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        @keyframes animateGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blackloader">Training: 38% <span id="percentComplete">Accuracy: 99.51%</span></div>
+
+<!--<script src="http://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>-->
+<script>
+
+</script>
+</body>
+</html>

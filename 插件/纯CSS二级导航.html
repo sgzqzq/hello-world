@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>纯CSS二级导航</title>
+    <style>
+        html{
+            font-family: "Microsoft YaHei";
+            font-size: 14px;
+        }
+        body{
+            margin: 0;
+        }
+        ul,li{
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        .nav{
+            display: flex;
+            justify-content: flex-end;
+            background-color: #484848;
+        }
+        .nav .navtxt{
+            position: relative;
+        }
+        .nav .navtxt a{
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            line-height: 45px;
+            padding: 0 20px;
+            transition: background-color 0.5s;
+        }
+        .nav2{
+            transition: height 1s;
+            height: 0;
+            overflow: hidden;
+        }
+        .nav2 .nav2txt a{
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            line-height: 45px;
+            border-bottom: 1px solid #414141;
+        }
+        .nav2-box .tri{
+            position: absolute;
+            top: -14px;
+            z-index: 100000;
+            left: 0; right: 0; margin: auto;
+            width: 0; height: 0;
+            border: 7px solid transparent;
+            border-bottom-color: #484848;
+        }
+        .nav2-box{
+            position: absolute;
+            left: -42px;
+            top: 52px;
+            width: 180px;
+            background-color: #484848;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .nav .navtxt:hover .nav2-box{
+            display: block;
+            overflow: visible;
+            opacity: 1;
+        }
+        .nav .navtxt:hover .nav2{
+            height: 230px;
+        }
+
+        .nav .navtxt a:hover{
+            transition: background-color 1s;
+            background-color: #60b6ff;
+        }
+
+
+        .nav .navtxt:hover:after{
+            position: absolute;
+            left: 0;
+            bottom: -7px;
+            content:"";
+            width: 100%; height: 7px;
+            background-color: transparent;
+        }
+    </style>
+
+</head>
+<body>
+<!--如果想将动效做的更细腻，只能用js+css的方式-->
+<ul class="nav">
+    <li class="navtxt"><a href="#">我是导航</a>
+        <div class="nav2-box">
+            <span class="tri"></span>
+            <ul class="nav2">
+                <li class="nav2txt"><a href="#">我是导航1</a></li>
+                <li class="nav2txt"><a href="#">我是导航1</a></li>
+                <li class="nav2txt"><a href="#">我是导航1</a></li>
+                <li class="nav2txt"><a href="#">我是导航1</a></li>
+                <li class="nav2txt"><a href="#">我是导航1</a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="navtxt"><a href="#">我是导航</a>
+        <div class="nav2-box">
+            <span class="tri"></span>
+            <ul class="nav2">
+                <li class="nav2txt"><a href="#">我是导航2</a></li>
+                <li class="nav2txt"><a href="#">我是导航2</a></li>
+                <li class="nav2txt"><a href="#">我是导航2</a></li>
+                <li class="nav2txt"><a href="#">我是导航2</a></li>
+                <li class="nav2txt"><a href="#">我是导航2</a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="navtxt"><a href="#">我是导航</a>
+        <div class="nav2-box">
+            <span class="tri"></span>
+            <ul class="nav2">
+                <li class="nav2txt"><a href="#">我是导航3</a></li>
+                <li class="nav2txt"><a href="#">我是导航3</a></li>
+                <li class="nav2txt"><a href="#">我是导航3</a></li>
+                <li class="nav2txt"><a href="#">我是导航3</a></li>
+                <li class="nav2txt"><a href="#">我是导航3</a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="navtxt"><a href="#">我是导航</a>
+        <div class="nav2-box">
+            <span class="tri"></span>
+            <ul class="nav2">
+                <li class="nav2txt"><a href="#">我是导航4</a></li>
+                <li class="nav2txt"><a href="#">我是导航4</a></li>
+                <li class="nav2txt"><a href="#">我是导航4</a></li>
+                <li class="nav2txt"><a href="#">我是导航4</a></li>
+                <li class="nav2txt"><a href="#">我是导航4</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>
+
+<div style="height: 100px;background-color: #85c5ff"></div>
+</body>
+</html>

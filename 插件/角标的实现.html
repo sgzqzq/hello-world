@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>角标的实现</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            position: relative;
+            width: 200px;
+            height: 300px;
+            background-color: #eee;
+            margin: 50px auto;
+        }
+
+        .tag{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            overflow: hidden;
+        }
+        .tag .info{ /*文字*/
+            position: relative;
+            z-index: 1;
+            float: left;
+            background-color: crimson;
+            color: #fff;
+            font-size: 12px;
+            padding-left: 5px;
+            height: 20px;
+            line-height: 20px;
+        }
+        .tag .tri{ /*右侧三角*/
+            float: right;
+            width: 0;
+            height: 0;
+            border-top: 30px solid crimson;
+            border-right: 30px solid transparent; /*利用border可以做直角三角形*/
+            margin-left: -5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <div class="tag">
+        <div class="info">跟我来呀跟我来呀</div>
+        <div class="tri"></div>
+    </div>
+</div>
+
+</body>
+</html>

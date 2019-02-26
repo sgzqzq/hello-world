@@ -1,0 +1,81 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title></title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="application/javascript" src="<%=request.getContextPath()%>/js/jquery.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<div id="myPageTop">
+    <table>
+        <tr>
+            <td>
+                <label>按关键字搜索：</label>
+            </td>
+            <td class="column2">
+                <label>左击获取经纬度：</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="请输入关键字进行搜索" id="tipinput123">
+            </td>
+            <td class="column2">
+                <input type="text" readonly="true" id="lnglat">
+                <input type="button" readonly="true" id="btn1" value="确认" onclick="getLngLat()"><br>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript"
+        src="http://webapi.amap.com/maps?v=1.3&key=3f256d193896e8c104ac69d048bf01b0&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.ToolBar"></script>
+
+
+<script type="text/javascript">
+    setInterval(map,300);
+    var map = new AMap.Map("container",
+            {
+                resizeEnable: true,
+                zoom: 10,
+                center: [126.65345,45.756967]
+            }
+    );
+    window.onload = function() {
+        map.plugin(["AMap.ToolBar"], function() {
+            map.addControl(new AMap.ToolBar());
+        });
+        if(location.href.indexOf('&guide=1')!==-1){
+            map.setStatus({scrollWheel:false})
+        }
+    }
+    var clickEventListener = map.on('click', function(e) {
+        document.getElementById("lnglat").value = e.lnglat.getLng() +","+e.lnglat.getLat();
+    });
+
+    function getLngLat(){
+        var lnglat = $("#lnglat").val();
+        window.parent.colseMadel2(lnglat);
+    }
+    window.onload =AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch'], function () {//回调函数
+        var autoOptions = {
+            city: "", //城市，默认全国
+            input: "tipinput123"//使用联想输入的input的id
+        };
+        var autocomplete = new AMap.Autocomplete(autoOptions);
+        var placeSearch = new AMap.PlaceSearch({
+            city: '',
+            map: map
+        });
+
+        AMap.event.addListener(autocomplete, "select", function (e) {
+           document.getElementById("lnglat").value=e.poi.location;
+            placeSearch.search(e.poi.name)
+        });//注册监听，当选中某条记录时会触发
+    });
+</script>
+
+</html>
