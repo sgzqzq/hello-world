@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>data表单元素兼容</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            font-family: "Microsoft YaHei","Helvetica Neue" ,Helvetica,STHeiTi,Arial,sans-serif;
+            box-sizing: border-box;
+        }
+        .ipt-date{
+            height: 30px; width: 200px;
+            padding: 0 5px;
+            border: 1px solid #ababab; border-radius: 5px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<!--
+浏览器里的date元素不支持placeholder
+这里用js做了一个小小的兼容
+-->
+<input class="ipt-date" type="text" onclick="this.type='date'" placeholder="Date"/>
+
+</body>
+</html>
