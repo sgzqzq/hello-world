@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script src="echarts/js/jquery-1.7.2.min.js"></script>
+    <style>
+        body{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://www.baidu.com/"></iframe>
+    <iframe src="http://www.bootcss.com/"></iframe>
+    <img src="http://files.jb51.net/file_images/article/201412/2014122914413510.jpg"/>
+    <div>xixihaha</div>
+    <script>
+        $(window).load(function(){
+            alert('load了');
+        });
+        $(window).load(function(){
+            alert('load2了');
+        });
+        window.onload=function(){
+            alert('load3了');
+        };
+        window.onload=function(){
+            alert('load4了');
+        };
+        //原生的window.onload事件只能使用一次，也就是说如果页面中有多个onload事件，只有最下面的才会被执行，但是$(window).load 则不会被覆盖
+        //load事件需要在dom结构、所有外部引入文件(js、css)，所有图片全部加载完成后被执行
+        //window代表的是浏览器窗口，而document代表的是浏览器窗口中加载的dom元素
+        //document是window的一个属性，window是最顶级的对象
+        //iframe会阻塞onload事件（iframe加载完成后，onload事件才会被执行）
+        //iframe占内存
+
+
+        $(window).ready(function(){
+            alert("window");
+        });
+        $(document).ready(function(){
+            alert("document");
+        });
+        $("div").ready(function(){
+            alert("div");
+        });
+        $('img').ready(function(){
+            alert('img')
+        });
+        $('script').ready(function(){
+            alert('script')
+        });
+        $('iframe').ready(function(){
+            alert('iframe')
+        });
+        //无论ready事件添加到任何元素上，其都是在dom结构加载完成后执行，所以多个ready事件的执行顺序是按照注册的先后顺序执行的。
+
+
+        //$(function(){}); 等价于 $(document).ready(function(){});
+        //一般情况一个页面响应加载的顺序是：域名解析-加载html-加载js和css-加载图片等其他信息
+    </script>
+</body>
+</html>

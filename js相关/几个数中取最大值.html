@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<script>
+    //Math.max()  可以有多个参数
+    var data=[
+            {id:1,name:'a'},
+            {id:6,name:'a'},
+            {id:88,name:'a'},
+            {id:68,name:'a'},
+            {id:4,name:'a'},
+            {id:75,name:'a'}
+    ];
+    var max=null;
+    for(var i=0;i<data.length;i++){
+        max=Math.max(max,data[i].id);
+    }
+    console.log(max);
+</script>
+</body>
+</html>

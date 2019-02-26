@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>jQuery特殊选择器用法</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+</head>
+<body>
+<script src="js/jquery-1.10.2.min.js"></script>
+<!--
+$("img", this) 指在查找img元素,范围限制在 this这个元素内
+$(this,"img") 查找 img元素中 像this这样的元素,这句感觉有点不对劲,因为this是已经确定的元素,没有必要再去查找,直接$(this)就行了
+你说的逗号并列关系的前提是选择器在同一个引号内
+如 $("a , p")就是查找所有的a 与 p 元素, 像$("a", jqueryobject) 是在jqueryobject包装集中搜索a元素,意义大不相同
+-->
+
+
+<form>
+    <input style="display: none;" type="text" name="user"/>
+    <input type="hidden" name="user"/>
+    <input type="text" name="user" disabled/>
+    <input type="text" name="user"/>
+    <input type="text" name="user"/>
+</form>
+<script>
+    //jquery伪类选择器可以像交集选择器一样使用
+    //:enabled指被激活的表单元素，要注意它和focus聚焦的区别
+    $(':input:enabled:visible').css('backgroundColor','yellow');
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+    <script>
+        var AA = [1,2,3];
+        console.log("outer1AA"+AA);//123
+        (function(window,x){
+            console.log("x1",x);//123
+            x = [3,4,5];
+            console.log("x2",x);//345
+            console.log("innerAA"+AA);//123
+        })(window,AA);
+        console.log("outer2AA"+AA);//123
+    </script>
+    <!--
+    这么理解吧，传进参数AA的时候，js做的操作实际上是把AA的内容复制了一份，交给了x，（注意，不是把AA指向的地址赋给x），此时x和AA内容相同，可是相互独立。后面对x的修改并不会对AA造成印象。更详细可以看下《JavaScript高级程序设计》相关描述
+    -->
+</body>
+</html>
