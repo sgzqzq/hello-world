@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>等元素间距百分比缩放</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <style>
+        body{
+            margin: 0;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        .box1{
+            width: 100%;
+            border: 1px solid #eee;
+            position:  absolute;
+            bottom: calc(20% + 23px);
+        }
+        .box{
+            width: 100%;
+            border: 1px solid #eee;
+            position:  absolute;
+            bottom: 10%; /*绝对定位中垂直方向的百分比是按容器高度计算的*/
+        }
+    </style>
+</head>
+<body>
+
+<div class="box1">hello world</div>
+<div class="box">hello world</div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>页面背景图样式须知</title>
+    <style>
+        html{
+            height: 100%;
+            /*min-width: 960px;*/
+        }
+        body{
+            margin: 0;
+            height: 100%;
+            min-width: 960px;
+            /*background: linear-gradient(#fff,#ccc) no-repeat;*/ /*body中设置的 背景的宽度 会受到html大小的影响*/
+            /*background-color: #eee;*/ /*如果是body设置的纯色背景，颜色会铺满整个屏幕，不会受html、body大小的限制*/
+        }
+        .box{
+            height: 100%;
+            /*min-width: 960px;*/
+            background: linear-gradient(#fff,#ccc) no-repeat;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+
+<!--
+html和body在页面中是比较特殊的元素，所以我们在操作dom时尽量不要动这两个元素。
+
+因此，如果我们把背景图设置在body上，那么我们在为页面加最小宽度的时候，要加在html上，
+否则会造成body的布局溢出，使body的背景图在出现横向滚动条时显示不全。
+
+如果在body中单独建一个div设置背景图，那么即使出现横向滚动条，也不会出现背景图显示不全的情况。
+-->
+
+</body>
+</html>

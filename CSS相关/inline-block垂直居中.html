@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>inline-block垂直居中</title>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            margin: 0;
+            height: 100%;
+        }
+        .box{
+            height: 100%;
+        }
+        .h{
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+        .son{
+            display: inline-block;
+            vertical-align: middle;
+            width: 100%;
+            height: 250px;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="son"></div><div class="h"></div>
+</div>
+</body>
+</html>

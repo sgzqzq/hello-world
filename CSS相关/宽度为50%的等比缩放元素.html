@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>宽度为50%的等比缩放元素</title>
+    <style>
+        *{
+            margin: 0; padding: 0;
+        }
+        body{
+            padding: 10px;
+            font-size: 87.5%;
+            line-height: 1.5;
+            font-family: 'Lucida Grande',Verdana;
+        }
+        .img-box {
+            width: 0;
+            padding: 0 50% 66.66% 0; /* width由padding-right撑出，height由padding-bottom撑出 */
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="img-box"></div>
+</body>
+</html>
