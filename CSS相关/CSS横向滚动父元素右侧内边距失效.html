@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CSS横向滚动父元素右侧内边距失效</title>
+</head>
+<body>
+
+<style>
+    .box {
+        width: 500px; height: 80px;
+        background-color: rgb(238, 215, 195);
+        overflow-x: auto;
+        padding: 20px;
+    }
+    .inner {
+        width: 700px; height: 100%;
+        margin: 0 20px;
+        background-color: rgb(228, 167, 91);
+    }
+</style>
+<div class="box">
+    <div class="inner">
+        hello world!
+    </div>
+</div>
+<!--
+如果子元素宽度大于父元素宽度，且父元素设置overflow，则父元素的padding-right会失效
+-->
+
+
+<style>
+    ul,li {
+        padding: 0; margin: 0;
+        list-style: none;
+    }
+    .box2 {
+        margin-top: 30px;
+        display: flex; align-items: center;
+        width: 360px;
+        padding: 8px;
+        background-color: #d0efec;
+        overflow-x: auto;
+    }
+    .box2::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 1px;
+        border-right: 8px solid transparent;
+    }
+    .box2 li {
+        flex-shrink: 0;
+        flex-grow: 1;
+        flex-basis: 120px;
+        margin: 0 8px;
+        background-color: #78e8df;
+        height: 70px;
+    }
+</style>
+<ul class="box2">
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>444</li>
+    <li>555</li>
+</ul>
+<!--
+    用flex布局实现横向滚动，可以通过为父元素添加伪类来模拟右内边距
+-->
+
+
+<!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
+<script>
+
+</script>
+</body>
+</html>
